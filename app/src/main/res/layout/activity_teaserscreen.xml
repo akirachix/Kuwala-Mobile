@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#883418"
-    tools:context=".TeaserScreen">
+    tools:context=".Teaserscreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
@@ -37,6 +37,7 @@
             android:layout_marginStart="117dp"
             android:layout_marginTop="48dp"
             android:text="Cook up joy cut down waste"
+            android:fontFamily="@font/teachers"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -48,6 +49,7 @@
             android:layout_marginStart="139dp"
             android:layout_marginTop="24dp"
             android:text="Greate.share.explore"
+            android:fontFamily="@font/teachers"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLook" />
@@ -59,6 +61,7 @@
             android:layout_marginStart="108dp"
             android:layout_marginTop="20dp"
             android:text="Already have an account?log in"
+            android:fontFamily="@font/teachers"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnbutton" />
@@ -71,6 +74,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="124dp"
             android:text="Get Started"
+            android:fontFamily="@font/teachers"
             android:backgroundTint="#F8A11B"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

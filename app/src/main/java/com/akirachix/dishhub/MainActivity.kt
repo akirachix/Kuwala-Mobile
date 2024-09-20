@@ -2,23 +2,26 @@ package com.akirachix.dishhub
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.akirachix.dishhub.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+
+    private lateinit var binding: ActivityMainBinding
+    private val SPLASH_DISPLAY_LENGTH = 3000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.Logo.setOnClickListener{
-            val intent=Intent(this,Teaserscreen::class.java)
-            startActivity(intent)
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
 
+            val mainIntent = Intent(this, Teaserscreen::class.java)
+            startActivity(mainIntent)
+            finish()
+        }, SPLASH_DISPLAY_LENGTH.toLong())
     }
 }
