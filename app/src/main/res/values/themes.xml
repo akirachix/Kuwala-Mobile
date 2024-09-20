@@ -6,6 +6,6 @@
     </style>
 
     <style name="Theme.DishHub" parent="Base.Theme.DishHub" >
-        <item name="fontFamily">@font/teachers</item>
+        <item name="fontFamily">@font/lato</item>
     </style>
 </resources>
