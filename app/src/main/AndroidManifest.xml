@@ -13,6 +13,36 @@
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
         <activity
+            android:name=".Grains"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Fruits"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Vegetables"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".foodCategories"
+            android:exported="false" />
+        <activity
+            android:name=".category"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".homepage"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".bottom_nav_menu"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Homepage"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
