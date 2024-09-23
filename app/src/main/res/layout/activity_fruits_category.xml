@@ -53,8 +53,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="372dp"
-        android:layout_height="399dp"
+        android:layout_width="389dp"
+        android:layout_height="490dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
@@ -74,18 +74,18 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="112dp"
-        android:layout_height="50dp"
+        android:layout_width="141dp"
+        android:layout_height="58dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#883418"
         android:text="Save"
+        android:textSize="18dp"
         android:textColor="#F8A11B"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.428" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

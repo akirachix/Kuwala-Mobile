@@ -5,11 +5,12 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <CheckBox
         android:id="@+id/customCheckBox"
         android:layout_width="34dp"
         android:layout_height="28dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:buttonTint="@color/yellow"/>
 
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="18dp"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="18dp"
@@ -29,7 +30,7 @@
         android:id="@+id/imageView10"
         android:layout_width="29dp"
         android:layout_height="22dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="230dp"
         android:layout_marginTop="20dp"
         app:srcCompat="@drawable/plus"
         tools:ignore="ImageContrastCheck" />
@@ -38,7 +39,7 @@
         android:id="@+id/imageView15"
         android:layout_width="32dp"
         android:layout_height="35dp"
-        android:layout_marginLeft="250dp"
+        android:layout_marginLeft="280dp"
         android:layout_marginTop="15dp"
         app:srcCompat="@drawable/circle" />
 
@@ -46,7 +47,7 @@
         android:id="@+id/etQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="261dp"
+        android:layout_marginLeft="290dp"
         android:layout_marginTop="20dp"
         android:text="9"
         android:textColor="@color/black"
@@ -57,7 +58,7 @@
         android:id="@+id/imageView16"
         android:layout_width="23dp"
         android:layout_height="28dp"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="340dp"
         android:layout_marginTop="20dp"
         app:srcCompat="@drawable/minus" />
 </com.google.android.material.card.MaterialCardView>

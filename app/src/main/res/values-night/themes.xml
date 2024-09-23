@@ -8,4 +8,5 @@
     <style name="Theme.DishHub." parent="Base.Theme.DishHub" >
         <item name="android:fontFamily">@font/lato</item>
     </style>
+
 </resources>
