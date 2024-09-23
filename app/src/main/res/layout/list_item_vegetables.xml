@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <CheckBox
+        android:id="@+id/customCheckBox"
+        android:layout_width="34dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:buttonTint="@color/yellow"/>
+
+
+    <TextView
+        android:id="@+id/etFoodName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        tools:ignore="TextSizeCheck" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="29dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/plus"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="32dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/circle" />
+
+    <TextView
+        android:id="@+id/etQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="261dp"
+        android:layout_marginTop="20dp"
+        android:text="9"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        tools:ignore="TextSizeCheck" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="23dp"
+        android:layout_height="28dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/minus" />
+</com.google.android.material.card.MaterialCardView>

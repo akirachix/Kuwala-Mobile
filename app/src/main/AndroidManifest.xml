@@ -13,7 +13,31 @@
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
         <activity
+            android:name=".GrainsList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesItem"
+            android:exported="false" />
+        <activity
+            android:name=".FruitsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".DairyCategory"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesCategory"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
