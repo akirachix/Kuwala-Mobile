@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.replace
 import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
 
 class Categories : AppCompatActivity() {

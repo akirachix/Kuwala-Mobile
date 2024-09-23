@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(mainIntent)
             finish()
         }, SPLASH_DISPLAY_LENGTH.toLong())
+        setContentView(R.layout.activity_main)
     }
 }
 

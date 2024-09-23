@@ -1,13 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.DishHub" parent="Theme.Material3.DayNight.NoActionBar">
-<!--         Customize your dark theme here. -->
-         <item name="colorPrimary">@color/Orange</item>
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 
-    <style name="Theme.DishHub." parent="Base.Theme.DishHub">
-        <item name="android:fontFamily">@font/inter</item>
-        <item name="android:textColor">@color/Orange</item>
+    <style name="Theme.DishHub." parent="Base.Theme.DishHub" >
+        <item name="android:fontFamily">@font/lato</item>
     </style>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.akirachix.dishhub
 
-
-data class Fruits(
+data class Vegetables(
     var name: String,
     var quantity: Int,
     var avatar:String,
