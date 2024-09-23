@@ -3,9 +3,10 @@
     <style name="Base.Theme.DishHub" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/Orange</item>
     </style>
 
-    <style name="Theme.DishHub" parent="Base.Theme.DishHub" >
+    <style name="Theme.DishHub" parent="Base.Theme.DishHub">
         <item name="fontFamily">@font/lato</item>
     </style>
 </resources>

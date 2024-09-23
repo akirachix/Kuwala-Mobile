@@ -25,3 +25,4 @@ class MainActivity : AppCompatActivity() {
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }
 }
+

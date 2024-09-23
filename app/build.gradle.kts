@@ -52,3 +52,14 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 }
+
+
+dependencies {
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    val fragment_version = "1.5.7"
+    //noinspection GradleDependency
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+}
