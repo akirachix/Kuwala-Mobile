@@ -42,23 +42,22 @@ android {
 }
 
 dependencies {
-    // AndroidX and Material dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
-    // Google Play Services for Google Sign-In
-    implementation("com.google.android.gms:play-services-auth:20.5.0")
-
-    // Firebase Authentication (with Kotlin DSL)
-    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-
-    // Unit Testing and Android Instrumentation Testing
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    val fragment_version = "1.5.7"
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
 }

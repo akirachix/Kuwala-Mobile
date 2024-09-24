@@ -3,14 +3,13 @@ package com.akirachix.dishhub
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.akirachix.dishhub.databinding.ActivityLoginBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class Login : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,13 +19,13 @@ class Login : AppCompatActivity() {
         setupTextWatchers()
 
         binding.txtsignUp.setOnClickListener {
-            val intent = Intent(this, Signup::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Signup::class.java))
         }
 
         binding.btnlogin.setOnClickListener {
             if (validateInputs()) {
-
+                // Proceed to the next activity (e.g., Categories)
+                startActivity(Intent(this, Categories::class.java))
             }
         }
     }
@@ -36,16 +35,17 @@ class Login : AppCompatActivity() {
         binding.etpss.addTextChangedListener(createTextWatcher(binding.tilPassword))
     }
 
-    private fun createTextWatcher(textInputLayout: TextInputLayout): TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private fun createTextWatcher(textInputLayout: TextInputLayout): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            textInputLayout.error = null
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                textInputLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
         }
-
-        override fun afterTextChanged(s: Editable?) {}
     }
-
 
     private fun validateInputs(): Boolean {
         clearErrors()
@@ -69,12 +69,10 @@ class Login : AppCompatActivity() {
         return !formError
     }
 
-
     private fun clearErrors() {
         binding.tilEmail.error = null
         binding.tilPassword.error = null
     }
-
 
     private fun isValidEmail(email: String): Boolean {
         return email.contains("@")

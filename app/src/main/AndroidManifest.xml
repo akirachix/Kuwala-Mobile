@@ -15,60 +15,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
-
-        <!-- Firebase configuration -->
-        <meta-data
-            android:name="firebase_app_id"
-            android:value="1:531043947887:android:69e2e43f4e8f681c07849a" />
-
-        <meta-data
-            android:name="com.google.firebase.api_key"
-            android:value="AIzaSyDFCab_gjRahXmVH-KpipR8tNadCzi5ap8" />
-
-        <meta-data
-            android:name="com.google.android.gms.games.APP_ID"
-            android:value="1:531043947887:android:69e2e43f4e8f681c07849a" />
-        <meta-data
-            android:name="com.google.android.gms.appinvite.automatic_install"
-            android:value="true" />
-
-        <meta-data
-            android:name="com.google.android.gms.auth.api.credentials.CREDENTIAL_ENABLED"
-            android:value="true" />
-
-        <meta-data
-            android:name="com.google.android.gms.clientId"
-            android:value="1:531043947887:android:69e2e43f4e8f681c07849a" /> <!-- Using mobileSdk app ID -->
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_channel_id" />
+        <activity android:name=".FruitsListActivity" />
+        <activity
+            android:name=".Fruit"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Fruits"
+            android:exported="false" />
+        <activity
+            android:name=".Categories"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
 
         <activity
-            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
+            android:exported="false" />
+        <activity
+            android:name=".Teaserscreen"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Teaserscreen"
-            android:exported="true" />
-
-        <activity
-            android:name=".Signup"
-            android:exported="true" />
-
-        <activity
-            android:name=".Login"
-            android:exported="true" />
 
         <activity
             android:name=".Profile"

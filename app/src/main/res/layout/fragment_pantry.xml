@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PantryFragment"
+    android:background="@color/white">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="1122dp"
+        tools:context=".PantryList">
+
+        <TextView
+            android:id="@+id/tvPantry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="324dp"
+            android:text="Pantry"
+            android:textColor="#883418"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvpantry"
+            android:layout_width="386dp"
+            android:layout_height="527dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            tools:listitem="@layout/item_list" />
+
+        <Button
+            android:id="@+id/btnYumAhead"
+            android:layout_width="258dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="36dp"
+            android:backgroundTint="#883418"
+            android:text="Get Recipe"
+            android:textColor="#F8A11B"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvpantry" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="37dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/notification" />
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="406dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/search_view_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPantry" />
+
+        <TextView
+            android:layout_width="606dp"
+            android:layout_height="1182dp"
+            android:layout_gravity="center"
+            android:text="@string/hello_blank_fragment"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="-18dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+</FrameLayout>
