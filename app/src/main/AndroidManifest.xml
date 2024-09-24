@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,14 +14,66 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
+        <activity android:name=".FruitsListActivity" />
+        <activity
+            android:name=".Fruit"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Fruits"
+            android:exported="false" />
+        <activity
+            android:name=".Categories"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
+            android:exported="false" />
+        <activity
+            android:name=".Teaserscreen"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesItem"
+            android:exported="false" />
+        <activity
+            android:name=".FruitsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".DairyCategory"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesCategory"
+            android:exported="false" />
+        <activity
+            android:name=".AddItemManually"
+            android:exported="false" />
+
+        <activity android:name=".Recipes"
+            android:exported="false"/>
+
+        <activity android:name=".RecipeDisplay"
             android:exported="false" />
 
         <activity
-            android:name=".Recipes"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
