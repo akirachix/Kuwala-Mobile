@@ -1,59 +1,91 @@
+
 package com.akirachix.dishhub
 
+import PantryAdapter
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.akirachix.dishhub.databinding.FragmentPantryBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PantryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@Suppress("UNREACHABLE_CODE")
 class PantryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentPantryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pantry, container, false)
+        binding = FragmentPantryBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+        displayItems()
+        return binding.root
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PantryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PantryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recipe = binding.btnYumAhead
+        recipe?.setOnClickListener {
+            startActivity(Intent(activity,RecipesFragment ::class.java))
+        }
+
+        val fruit = binding.btnYumAhead
+        recipe?.setOnClickListener {
+            startActivity(Intent(activity, Recipes::class.java))
+        }
+
+
     }
+
+    private fun setupRecyclerView() {
+        binding.rvpantry.layoutManager = LinearLayoutManager(requireContext())
+        val pantryAdapter = PantryAdapter(mutableListOf())
+        binding.rvpantry.adapter = pantryAdapter
+    }
+
+
+
+
+    private fun displayItems() {
+        val items = listOf(
+            PantryItems("Onion", 1, ""),
+            PantryItems("Tomatoes", 3, ""),
+            PantryItems("Rice", 2, ""),
+            PantryItems("Milk", 6, ""),
+            PantryItems("Beef", 5, ""),
+            PantryItems("Kales", 4, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Kales", 2, ""),
+            PantryItems("Flour", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Mangoes", 2, ""),
+            PantryItems("oranges", 2, ""),
+            PantryItems("Ovacado", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Pork", 2, ""),
+            PantryItems("Pork", 2, ""),
+
+        )
+
+        val pantryAdapter = PantryAdapter(items)
+          binding.rvpantry.adapter = pantryAdapter
+
+    }
+
 }
+
+
+

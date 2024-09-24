@@ -15,6 +15,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityLoginBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
     binding.txtsignUp.setOnClickListener {
         val intent = Intent(this, Signup::class.java)
         startActivity(intent)

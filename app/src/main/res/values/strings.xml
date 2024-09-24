@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">DishHub</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_bottom_nav_menu">bottom_nav_menu</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="todo">TODO</string>
+    <string name="beef">TODO</string>
+    <string name="sausages">TODO</string>
+    <string name="pilau">Pilau</string>
+    <string name="beef_samosa">Beef samosa</string>
+    <string name="sausage">Sausages</string>
+    <string name="chips">Chips</string>
+    <string name="beans">Beans</string>
+    <string name="meat">Beef</string>
+    <string name="recipes">Recipes</string>
+
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
