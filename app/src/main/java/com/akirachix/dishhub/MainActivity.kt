@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler(Looper.getMainLooper()).postDelayed({
-
             val mainIntent = Intent(this, Teaserscreen::class.java)
             startActivity(mainIntent)
             finish()
