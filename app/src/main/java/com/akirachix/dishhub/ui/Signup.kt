@@ -1,11 +1,8 @@
-package com.akirachix.dishhub
+package com.akirachix.dishhub.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.akirachix.dishhub.databinding.ActivitySignupBinding
 
 class Signup : AppCompatActivity() {
@@ -14,18 +11,19 @@ class Signup : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.txtlogin.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
-//        binding.btnlogin.setOnClickListener {
-//            val intent = Intent(this, Categories::class.java)
-//            startActivity(intent)
-//        }
+        binding.btnSignUp.setOnClickListener {
+            val intent = Intent(this, Categories::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
-
-
 
 
 

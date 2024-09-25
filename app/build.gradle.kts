@@ -33,15 +33,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures{
-        viewBinding=true
-
+    buildFeatures {
+        viewBinding = true
     }
 }
 
-
 dependencies {
-
+    // Existing dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -51,15 +49,27 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-}
-
-
-dependencies {
+    // Lifecycle components for ViewModel and LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Navigation components (fragment and UI)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Fragment KTX
     val fragment_version = "1.5.7"
-    //noinspection GradleDependency
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
+    // Retrofit and Gson for networking and JSON conversion
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // OkHttp and logging interceptor for network request logging
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Coroutines dependencies for async tasks
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 }
