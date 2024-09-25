@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -26,10 +27,7 @@
             android:name=".ui.Categories"
             android:exported="false"
             android:theme="@style/Theme.DishHub" />
-        <activity
-            android:name=".bottom_nav_menu"
-            android:exported="false"
-            android:label="@string/title_activity_bottom_nav_menu" />
+
         <activity
             android:name=".ui.Login"
             android:exported="false" />
@@ -43,14 +41,24 @@
             android:name=".ui.Teaserscreen"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+
+        <activity
+            android:name=".Shopping"
+            android:exported="false" />
+
     </application>
 
 </manifest>

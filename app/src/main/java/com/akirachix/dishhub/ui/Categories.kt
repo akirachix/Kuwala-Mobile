@@ -3,7 +3,7 @@ package com.akirachix.dishhub.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.akirachix.dishhub.R
+import androidx.core.view.WindowInsetsCompat
 import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
 
 class Categories : AppCompatActivity() {
@@ -68,7 +68,7 @@ class RecipesFragment : Fragment() {
 }
 
 class HomeFragment : Fragment() {
-    
+
 
 }
 
