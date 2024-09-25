@@ -1,139 +1,128 @@
+
 package com.akirachix.dishhub
+
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Toast
+import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.akirachix.dishhub.databinding.ActivitySignupBinding
-import com.google.android.material.textfield.TextInputLayout
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.FirebaseUser
+import android.widget.Button
 
+class SignUpActivity : AppCompatActivity() {
 
-class Signup: AppCompatActivity() {
-
-
-    lateinit var binding: ActivitySignupBinding
-
+    private lateinit var auth: FirebaseAuth
+    private lateinit var oneTapClient: com.google.android.gms.auth.api.identity.SignInClient
+    private val TAG = "SignUpActivity"
+    private lateinit var signInLauncher: ActivityResultLauncher<IntentSenderRequest>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_signup)
 
-        binding.txtlogin.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
+        // Help to  Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
+        oneTapClient = Identity.getSignInClient(this)
+
+        // Help to Register the sign-in launcher for handling the result of the sign-in intent
+        signInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartIntentSenderForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                handleSignInResult(result.data)
+            } else {
+                Log.e(TAG, "Sign-in failed or cancelled.")
+            }
         }
-        setupTextWatchers()
+
+        // Help to  Set up the Google Sign-In button click listener
+        val googleSignInButton: Button = findViewById(R.id.google)
+        googleSignInButton.setOnClickListener {
+            signIn()
+        }
     }
 
-
-    private fun setupTextWatchers() {
-        binding.etfirstname.addTextChangedListener(createTextWatcher(binding.tilfirstname))
-        binding.etLastname.addTextChangedListener(createTextWatcher(binding.tilLastName))
-        binding.etmail.addTextChangedListener(createTextWatcher(binding.tilEmail))
-        binding.etpass.addTextChangedListener(createTextWatcher(binding.tilPassword))
-        binding.etpass.addTextChangedListener(createTextWatcher(binding.tilpass))
+    override fun onStart() {
+        super.onStart()
+        // To  Check if user is signed in .
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
     }
 
+    private fun signIn() {
+        val signInRequest = BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    .setServerClientId(getString(R.string.server_client_id))
+                    .setFilterByAuthorizedAccounts(false)
+                    .build()
+            )
+            .build()
 
-    private fun createTextWatcher(textInputLayout: TextInputLayout): TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            textInputLayout.error = null
-        }
-
-
-        override fun afterTextChanged(s: Editable?) {}
+        oneTapClient.beginSignIn(signInRequest)
+            .addOnSuccessListener(this) { result ->
+                try {
+                    signInLauncher.launch(IntentSenderRequest.Builder(result.pendingIntent.intentSender).build())
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error starting sign-in intent: ${e.message}")
+                }
+            }
+            .addOnFailureListener(this) { e ->
+                Log.e(TAG, "Sign-in failed: ${e.message}")
+            }
     }
 
+    private fun handleSignInResult(data: Intent?) {
+        try {
+            data?.let {
+                val credential = oneTapClient.getSignInCredentialFromIntent(it)
+                val idToken = credential.googleIdToken
 
-    private fun validateRegistration(): Boolean {
-        clearErrors()
-        var formError = false
+                if (!idToken.isNullOrEmpty()) {
+                    // When I get   an ID token from Google. I use it to authenticate with Firebase.
+                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                    auth.signInWithCredential(firebaseCredential)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "signInWithCredential:success")
+                                val user = auth.currentUser
+                                updateUI(user)
 
-
-        val firstName = binding.etfirstname.text.toString()
-        if (firstName.isBlank()) {
-            formError = true
-            binding.tilfirstname.error = "First name is required"
-        } else if (!valid(firstName)) {
-            formError = true
-            binding.tilfirstname.error = "First name must contain letters only"
+                                //Help to  Navigate to the categories activity after successful sign-in
+                                startActivity(Intent(this, Categories::class.java))
+                                finish()
+                            } else {
+                                Log.w(TAG, "signInWithCredential:failure", task.exception)
+                                updateUI(null)
+                            }
+                        }
+                } else {
+                    Log.e(TAG, "No ID token found!")
+                }
+            } ?: Log.e(TAG, "Received null data for sign-in.")
+        } catch (e: ApiException) {
+            Log.e(TAG, "Sign-in failed: ${e.message}")
         }
-
-
-
-        val lastName = binding.etLastname.text.toString()
-        if (lastName.isBlank()) {
-            formError = true
-            binding.tilLastName.error = "Last name is required"
-        } else if (!valid(lastName)) {
-            formError = true
-            binding.tilLastName.error = "Last name must contain letters only"
-        }
-
-
-
-        val email = binding.etmail.text.toString()
-        if (email.isBlank()) {
-            formError = true
-            binding.tilEmail.error = "Email is required"
-        } else if (!email.contains("@")) {
-            formError = true
-            binding.tilEmail.error = "Email must contain an @ character"
-        }
-
-
-
-        val passWord = binding.etpass.text.toString()
-        if (passWord.isBlank()) {
-            formError = true
-            binding.tilPassword.error = "Password is required"
-        } else if (!match(passWord)) {
-            formError = true
-            binding.tilPassword.error = "Password must contain at least one special character (@ or *) and one number (0-9)"
-        } else if (passWord.length != 8) {
-            formError = true
-            binding.tilPassword.error = "Password must be 8 characters long"
-        }
-
-
-        val confirm = binding.etpass.text.toString()
-        if (confirm != passWord) {
-            formError = true
-            binding.tilpass.error = "Passwords do not match"
-        }
-
-
-        return !formError
     }
 
-
-    private fun clearErrors() {
-        binding.tilfirstname.error = null
-        binding.tilLastName.error = null
-        binding.tilEmail.error = null
-        binding.tilPassword.error = null
-        binding.tilpass.error = null
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
+            Log.d(TAG, "User signed in: ${user.displayName}")
+        } else {
+            Log.d(TAG, "No user signed in")
+        }
     }
 
-
-    private fun valid(name: String): Boolean {
-        val nameRegex = Regex("[a-zA-Z\\s]+$")
-        return nameRegex.matches(name)
-    }
-
-
-    private fun match(password: String): Boolean {
-        val specialChar = password.matches(Regex(".*[@*].*"))
-        val hasDigit = password.matches(Regex(".*\\d.*"))
-        return specialChar && hasDigit
+    private fun signOut() {
+        auth.signOut()
+        Log.d(TAG, "User signed out")
     }
 }
-
-
-
-
