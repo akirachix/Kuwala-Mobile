@@ -27,11 +27,11 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        // Help to  Initialize Firebase Auth
+
         auth = FirebaseAuth.getInstance()
         oneTapClient = Identity.getSignInClient(this)
 
-        // Help to Register the sign-in launcher for handling the result of the sign-in intent
+
         signInLauncher = registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult()
         ) { result ->
@@ -42,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        // Help to  Set up the Google Sign-In button click listener
+
         val googleSignInButton: Button = findViewById(R.id.google)
         googleSignInButton.setOnClickListener {
             signIn()
@@ -51,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // To  Check if user is signed in .
+
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
@@ -87,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
                 val idToken = credential.googleIdToken
 
                 if (!idToken.isNullOrEmpty()) {
-                    // When I get   an ID token from Google. I use it to authenticate with Firebase.
+
                     val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
                     auth.signInWithCredential(firebaseCredential)
                         .addOnCompleteListener(this) { task ->
@@ -96,7 +96,6 @@ class SignUpActivity : AppCompatActivity() {
                                 val user = auth.currentUser
                                 updateUI(user)
 
-                                //Help to  Navigate to the categories activity after successful sign-in
                                 startActivity(Intent(this, Categories::class.java))
                                 finish()
                             } else {
