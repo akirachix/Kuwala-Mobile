@@ -14,7 +14,7 @@ class AddItemManually : AppCompatActivity() {
     lateinit var binding: ActivityAddItemManuallyBinding
 
 
-    private var quantity: Int = 4 // Default starting quantity
+    private var quantity: Int = 4
     private lateinit var displayQuantity: TextView
     private lateinit var foodNameEditText: EditText
     private lateinit var categoryEditText: EditText

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akirachix.dishhub.databinding.FragmentPantryBinding
 
-@Suppress("UNREACHABLE_CODE")
 class PantryFragment : Fragment() {
     private lateinit var binding: FragmentPantryBinding
 
@@ -25,10 +24,6 @@ class PantryFragment : Fragment() {
         return binding.root
 
     }
-
-
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
