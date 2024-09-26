@@ -1,78 +1,165 @@
+
 package com.akirachix.dishhub
 
+import android.Manifest
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract.Profile
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.SystemClock
+import android.provider.MediaStore
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Switch
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
-class Profile : Fragment() {
+class Profile : AppCompatActivity() {
 
-    private lateinit var adapter: ShoppingListAdapter
-    private val shoppingItems = mutableListOf<ShoppingItem>()
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var reminderSwitch: Switch
+    private lateinit var pantryUpdateRadioGroup: RadioGroup
+    private lateinit var saveProfileButton: Button
+    private lateinit var profileImageView: ImageView
+    private lateinit var nameTextView: TextView
+    private lateinit var nameEditText: EditText
+    private lateinit var usernameEditText: EditText
+    private lateinit var txtOn: TextView
+    private lateinit var txtOff: TextView
+    private lateinit var monthlyRadioButton: RadioButton
+    private lateinit var weeklyRadioButton: RadioButton
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_GALLERY = 2
+    private var imageUri: Uri? = null
 
-        val view = inflater.inflate(R.layout.fragment_shop, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_profile)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewShoppingList)
-        val addButton: Button = view.findViewById(R.id.addButton)
-        val inputLayout: TextInputLayout = view.findViewById(R.id.textInputLayout2)
-        val profileButton: ImageView = view.findViewById(R.id.btntoprofile)
+        profileImageView = findViewById(R.id.profileImageView)
+        nameTextView = findViewById(R.id.nameTextView)
+        nameEditText = findViewById(R.id.nameEditText)
+        usernameEditText = findViewById(R.id.usernameEditText)
+        pantryUpdateRadioGroup = findViewById(R.id.pantryUpdateRadioGroup)
+        reminderSwitch = findViewById(R.id.reminderSwitch)
+        saveProfileButton = findViewById(R.id.saveProfileButton)
+        txtOn = findViewById(R.id.txton)
+        txtOff = findViewById(R.id.txtoff)
+        monthlyRadioButton = findViewById(R.id.monthlyRadioButton)
+        weeklyRadioButton = findViewById(R.id.weeklyRadioButton)
 
-        adapter = ShoppingListAdapter(
-            shoppingItems,
-            onItemChecked = { updateItem(it) },
-            onItemDeleted = { deleteItem(it) }
-        )
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        createNotificationChannel()
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
-
-
-        addButton.setOnClickListener {
-            val itemName = inputLayout.editText?.text.toString()
-            if (itemName.isNotEmpty()) {
-                addItem(itemName)
-                inputLayout.editText?.text?.clear()
+        reminderSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                scheduleReminder()
+            } else {
+                cancelReminder()
             }
         }
 
-
-        profileButton.setOnClickListener {
-            val intent = Intent(requireContext(), Profile::class.java)
-            startActivity(intent)
+        // Click listener for the profile image
+        profileImageView.setOnClickListener {
+            showImagePickerDialog()
         }
 
-        return view
-    }
-
-    private fun addItem(name: String) {
-        val newItem = ShoppingItem(shoppingItems.size, name, 1)
-        shoppingItems.add(newItem)
-        adapter.updateItems(shoppingItems)
-    }
-
-    private fun updateItem(item: ShoppingItem) {
-        val index = shoppingItems.indexOfFirst { it.id == item.id }
-        if (index != -1) {
-            shoppingItems[index] = item
-            adapter.updateItems(shoppingItems)
+        saveProfileButton.setOnClickListener {
+            Toast.makeText(this, "Profile Saved!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun deleteItem(item: ShoppingItem) {
-        shoppingItems.removeAll { it.id == item.id }
-        adapter.updateItems(shoppingItems)
+    private fun showImagePickerDialog() {
+        val options = arrayOf("Take Photo", "Choose from Gallery")
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Choose Profile Photo")
+        builder.setItems(options) { _, which ->
+            when (which) {
+                0 -> openCamera()
+                1 -> openGallery()
+            }
+        }
+        builder.show()
+    }
+
+    private fun openCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (takePictureIntent.resolveActivity(packageManager) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), REQUEST_IMAGE_CAPTURE)
+        }
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_IMAGE_CAPTURE -> {
+                    val bitmap = data?.extras?.get("data") as Bitmap
+                    profileImageView.setImageBitmap(bitmap) // Display the photo taken
+                }
+                REQUEST_GALLERY -> {
+                    imageUri = data?.data
+                    profileImageView.setImageURI(imageUri) // Display the selected photo from gallery
+                }
+            }
+        }
+    }
+
+    private fun scheduleReminder() {
+        cancelReminder()
+        val selectedId = pantryUpdateRadioGroup.checkedRadioButtonId
+        val frequency = if (selectedId == R.id.monthlyRadioButton) {
+            AlarmManager.INTERVAL_DAY * 30
+        } else {
+            AlarmManager.INTERVAL_DAY * 7
+        }
+        val intent = Intent(this, ReminderReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime() + frequency, frequency, pendingIntent)
+        Toast.makeText(this, "Reminder set!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun cancelReminder() {
+        val intent = Intent(this, ReminderReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(this, "Reminder canceled!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Pantry Reminder"
+            val descriptionText = "Channel for pantry reminders"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("reminderChannel", name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }

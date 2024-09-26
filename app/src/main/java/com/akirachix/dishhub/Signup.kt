@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import android.widget.Button
+import android.widget.TextView
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -29,6 +30,8 @@ class SignUpActivity : AppCompatActivity() {
 
 
         auth = FirebaseAuth.getInstance()
+
+
         oneTapClient = Identity.getSignInClient(this)
 
 
@@ -42,21 +45,33 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
+        // Handle Google sign-in button click
         val googleSignInButton: Button = findViewById(R.id.google)
         googleSignInButton.setOnClickListener {
             signIn()
+        }
+
+        // Handle "Don't have an account? Log in" click
+        val txtLogin: TextView = findViewById(R.id.txtlogin)  // Corrected for TextView usage
+        txtLogin.setOnClickListener {
+            Log.d("TeaserScreen", "Don't have an account? Log in")
+
+            // Corrected intent to start LoginActivity
+            val intent = Intent(this, Login::class.java)  // Assuming LoginActivity is the correct name
+            startActivity(intent)
         }
     }
 
     override fun onStart() {
         super.onStart()
 
+        // Check if user is signed in (non-null) and update UI accordingly
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
 
     private fun signIn() {
+        // Create a sign-in request for Google ID token
         val signInRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -67,10 +82,13 @@ class SignUpActivity : AppCompatActivity() {
             )
             .build()
 
+        // Start the sign-in flow
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
-                    signInLauncher.launch(IntentSenderRequest.Builder(result.pendingIntent.intentSender).build())
+                    signInLauncher.launch(
+                        IntentSenderRequest.Builder(result.pendingIntent.intentSender).build()
+                    )
                 } catch (e: Exception) {
                     Log.e(TAG, "Error starting sign-in intent: ${e.message}")
                 }
@@ -87,7 +105,7 @@ class SignUpActivity : AppCompatActivity() {
                 val idToken = credential.googleIdToken
 
                 if (!idToken.isNullOrEmpty()) {
-
+                    // Authenticate with Firebase using the Google ID token
                     val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
                     auth.signInWithCredential(firebaseCredential)
                         .addOnCompleteListener(this) { task ->
@@ -96,7 +114,8 @@ class SignUpActivity : AppCompatActivity() {
                                 val user = auth.currentUser
                                 updateUI(user)
 
-                                startActivity(Intent(this, Categories::class.java))
+                                // Start the Categories Activity on successful sign-in
+                                startActivity(Intent(this, Categories::class.java))  // Corrected Activity name
                                 finish()
                             } else {
                                 Log.w(TAG, "signInWithCredential:failure", task.exception)

@@ -15,16 +15,25 @@ class Teaserscreen : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        Log.d("Teaserscreen", "Teaserscreen Activity started")
-
+        binding.tvLogin.setOnClickListener {
+            Log.d("Teaserscreen", "Already have an account?log in clicked")
+            val intent = Intent(this,Login::class.java)
+            startActivity(intent)
+        }
 
         binding.btnbutton.setOnClickListener {
             Log.d("Teaserscreen", "Get Started button clicked")
             val intent = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 }
+
+
+
+
 
 
 
