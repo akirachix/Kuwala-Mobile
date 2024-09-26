@@ -6,8 +6,18 @@ plugins {
 
 
 
+    }
+buildscript{
+    repositories{
+        mavenCentral()
+    }
 
 
-
-
+    
 }
+
+
+
+
+
+
