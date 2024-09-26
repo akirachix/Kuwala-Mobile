@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akirachix.dishhub.databinding.ActivityFruitsCategoryBinding
+import com.akirachix.dishhub.ui.Fruits
 
 class FruitsCategory : AppCompatActivity() {
     lateinit var binding: ActivityFruitsCategoryBinding

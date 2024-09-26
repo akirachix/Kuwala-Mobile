@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.akirachix.dishhub.ui.Fruits
 
 class FruitsAdapter(var fruitsList: List<Fruits>):
     RecyclerView.Adapter<FruitsViewHolder> (){

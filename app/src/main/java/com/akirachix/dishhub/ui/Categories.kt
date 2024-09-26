@@ -1,7 +1,10 @@
-package com.akirachix.dishhub.ui
+package com.akirachix.dishhub
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.WindowInsetsCompat
 import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
@@ -50,25 +53,7 @@ class Categories : AppCompatActivity() {
         }
     }
 
-   private  fun loadFragment(fragment: Fragment){
-       supportFragmentManager.beginTransaction().replace(R.id.fcvHome,fragment).commit()
-   }
+    private  fun loadFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.fcvHome,fragment).commit()
+    }
 }
-
-class ShopFragment : Fragment() {
-
-}
-
-class PantryFragment : Fragment() {
-
-}
-
-class RecipesFragment : Fragment() {
-
-}
-
-class HomeFragment : Fragment() {
-
-
-}
-
