@@ -1,4 +1,3 @@
-
 package com.akirachix.dishhub.ui
 
 import android.content.Intent
@@ -9,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.akirachix.dishhub.Categories
-import com.akirachix.dishhub.HomeFragment
 import com.akirachix.dishhub.ViewModel.SignInViewModel
 import com.akirachix.dishhub.databinding.ActivityLoginBinding
 
@@ -27,7 +25,6 @@ class Login : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        // Observe login result from ViewModel
         signInViewModel.loginResult.observe(this, Observer { result ->
             result.onSuccess {
                 navigateToCategories()
@@ -40,12 +37,11 @@ class Login : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.txtsignUp.setOnClickListener {
-            startActivity(Intent(this, HomeFragment::class.java))
+            startActivity(Intent(this, Signup::class.java))
         }
 
         binding.btnLog.setOnClickListener {
-            startActivity(Intent(this, Categories::class.java))
-
+            handleEmailLogin() // Call this method to perform login first
         }
     }
 
@@ -53,26 +49,22 @@ class Login : AppCompatActivity() {
         val username = binding.etUsername.text.toString().trim()
         val password = binding.etpss.text.toString().trim()
 
-        // Validate input fields
         if (username.isEmpty() || password.isEmpty()) {
             showError("Please enter valid username and password")
             return
         }
 
         binding.btnLog.isEnabled = false
-
         signInViewModel.login(username, password)
     }
 
     private fun navigateToCategories() {
         startActivity(Intent(this, Categories::class.java))
-        finish() // Close login activity so it doesn't remain in the back stack
+        finish()
     }
 
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        // Re-enable the login button after showing the error
         binding.btnLog.isEnabled = true
     }
 }
-

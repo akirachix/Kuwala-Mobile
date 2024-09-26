@@ -1,5 +1,5 @@
-
 package com.akirachix.dishhub
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,18 +16,12 @@ class Teaserscreen : AppCompatActivity() {
         binding = ActivityTeaserscreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         Log.d("Teaserscreen", "Teaserscreen Activity started")
 
-
         binding.btnbutton.setOnClickListener {
-            Log.d("Teaserscreen", "Get Started button clicked") // Log click event
+            Log.d("Teaserscreen", "Get Started button clicked")
             val intent = Intent(this, Signup::class.java)
             startActivity(intent)
         }
     }
 }
-
-
-
-
