@@ -1,20 +1,22 @@
 <resources>
     <string name="app_name">DishHub</string>
 
-    <!-- Firebase Configuration -->
-    <string name="firebase_app_id">YOUR_FIREBASE_APP_ID</string>
-    <string name="api_key">YOUR_API_KEY</string>
-    <string name="server_client_id">YOUR_SERVER_CLIENT_ID</string>
+
+    <string name="firebase_app_id">1:531043947887:android:69e2e43f4e8f681c07849a</string>
+    <string name="api_key">
+AIzaSyDFCab_gjRahXmVH-KpipR8tNadCzi5ap8</string>
+    <string name="server_client_id">531043947887-a8464qk1hgjbu5liunnvgju6odlm8nnb.apps.googleusercontent.com</string>
     <string name="default_channel_id">your_default_channel_id</string>
-    <string name="project_number">YOUR_PROJECT_NUMBER</string>
+    <string name="project_number">531043947887</string>
     <string name="project_id">dishhub-6750a</string>
     <string name="storage_bucket">dishhub-6750a.appspot.com</string>
-    <!-- Other application strings -->
+
     <string name="hello_blank_fragment">Welcome to DishHub!</string>
     <string name="todo">To Do</string>
     <string name="beef">Beef Dishes</string>
     <string name="sausages">Sausage Options</string>
     <string name="pilau">Pilau</string>
+
     <string name="beef_samosa">Beef Samosa</string>
     <string name="sausage">Sausages</string>
     <string name="chips">Chips</string>

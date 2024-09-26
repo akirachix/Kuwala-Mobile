@@ -12,7 +12,20 @@
           "package_name": "com.akirachix.dishhub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "531043947887-lbekqobmcqg1ea8q27a5vjg0halq2kqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akirachix.dishhub",
+            "certificate_hash": "16c8f64ffa34423609843d9d079fc278dc1b0465"
+          }
+        },
+        {
+          "client_id": "531043947887-a8464qk1hgjbu5liunnvgju6odlm8nnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDFCab_gjRahXmVH-KpipR8tNadCzi5ap8"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531043947887-a8464qk1hgjbu5liunnvgju6odlm8nnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

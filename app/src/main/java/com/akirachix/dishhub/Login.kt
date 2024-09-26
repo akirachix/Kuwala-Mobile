@@ -19,7 +19,7 @@ class Login : AppCompatActivity() {
         setupTextWatchers()
 
         binding.txtsignUp.setOnClickListener {
-            startActivity(Intent(this, Signup::class.java))
+            startActivity(Intent(this,SignUpActivity::class.java))
         }
 
         binding.btnlogin.setOnClickListener {
