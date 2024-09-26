@@ -86,7 +86,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etCategory"
         android:layout_width="337dp"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/etQuantity"
@@ -94,7 +94,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCategory">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <Spinner
+            android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -1,49 +1,99 @@
 package com.akirachix.dishhub
 
-import androidx.appcompat.app.AppCompatActivity
+import FruitsAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.ImageView
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akirachix.dishhub.databinding.ActivityFruitsCategoryBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
+@Suppress("DEPRECATION")
 class FruitsCategory : AppCompatActivity() {
-    lateinit var binding: ActivityFruitsCategoryBinding
+
+    private lateinit var binding: ActivityFruitsCategoryBinding
+    private lateinit var adapter: FruitsAdapter
+    private var foodItems: List<Fruits> = listOf() // Now refers to Grains instead of Vegetables
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityFruitsCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupRecyclerView()
+        setupSearchView()
+        setupBackButton()
+        fetchFoodItems()
+    }
 
+    private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        displayFruits()
+        adapter = FruitsAdapter(emptyList()) { item -> onFoodItemSelected(item) } // Changed to GrainsAdapter
+        binding.recyclerView.adapter = adapter
+    }
 
-        val backArrow: ImageView = findViewById(R.id.imageView)
-        backArrow.setOnClickListener {
-            finish()
+    private fun setupSearchView() {
+        binding.searchView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterItems(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun setupBackButton() {
+        binding.imageView.setOnClickListener {
+            onBackPressed()
         }
     }
 
-    fun displayFruits(){
-        val fruit1 = Fruits("Apple",2,"")
-        val fruit2 = Fruits("Mango",4,"")
-        val fruit3 = Fruits("Banana",3,"")
-        val fruit4 = Fruits("Orange",8,"")
-        val fruit5 = Fruits("Guava",7,"")
-        val fruit6 = Fruits("Avocado",2,"")
-        val fruit7 = Fruits("Watermelon",5,"")
-        val fruit8 = Fruits("Pineapple",3,"")
-        val fruit9 = Fruits("Grapes",4,"")
-        val fruit10 = Fruits("Guava",7,"")
-        val fruit11 = Fruits("Avocado",2,"")
-        val fruit12= Fruits("Watermelon",5,"")
-        val fruit14 = Fruits("Pineapple",3,"")
-        val fruit13 = Fruits("Grapes",4,"")
+    private fun fetchFoodItems() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://dishhub-2ea9d6ca8e11.herokuapp.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        val myFruits = listOf(fruit1,fruit2,fruit3,fruit4,fruit5,fruit6,fruit7,fruit8,fruit9,
-        fruit10,fruit11,fruit12,fruit13,fruit14)
+        val service = retrofit.create(FruitsApiService::class.java)
+        service.getFoodItems().enqueue(object : Callback<List<Fruits>> { // Changed to List<Grains>
+            override fun onResponse(call: Call<List<Fruits>>, response: Response<List<Fruits>>) {
+                if (response.isSuccessful) {
+                    foodItems = response.body() ?: emptyList()
+                    adapter.updateItems(foodItems)
+                }
+            }
 
-        val FruitsAdapter = FruitsAdapter(myFruits)
-        binding.recyclerView.adapter= FruitsAdapter
+            override fun onFailure(call: Call<List<Fruits>>, t: Throwable) {
+                Toast.makeText(this@FruitsCategory, "Failed to fetch items", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
+    private fun filterItems(query: String) {
+        val filteredList = foodItems.filter { it.name.contains(query, true) }
+        if (filteredList.isNotEmpty()) {
+            binding.recyclerView.visibility = View.VISIBLE
+            adapter.updateItems(filteredList)
+        } else {
+            binding.recyclerView.visibility = View.GONE
+        }
+    }
+
+    private fun onFoodItemSelected(item: Fruits) { // Changed to Grains
+        Toast.makeText(this, "You selected: ${item.name}", Toast.LENGTH_SHORT).show()
+        binding.searchView.setText(item.name)
+        binding.recyclerView.visibility = View.GONE
     }
 }

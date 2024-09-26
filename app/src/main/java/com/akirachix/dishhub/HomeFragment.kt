@@ -1,13 +1,12 @@
 package com.akirachix.dishhub
 
+import GrainsAdapter
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import com.akirachix.dishhub.databinding.ActivityAddItemManuallyBinding
 import com.akirachix.dishhub.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -66,8 +65,8 @@ class HomeFragment : Fragment() {
             startActivity(Intent(activity, DairyCategory::class.java))
         }
 
-        val vege = binding.imageView4
-        vege?.setOnClickListener {
+        val vegetables = binding.imageView4
+        vegetables?.setOnClickListener {
             startActivity(Intent(activity, VegetablesCategory::class.java))
         }
 
