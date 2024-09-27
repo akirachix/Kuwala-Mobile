@@ -121,16 +121,6 @@
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnlogin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#883418"
-            android:text="Sign Up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilpass" />
 
         <TextView
             android:id="@+id/txtlogin"
@@ -139,7 +129,6 @@
             android:layout_marginTop="16dp"
             android:text="Already have an account? Login"
             android:textSize="16sp"
-            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,10 +178,7 @@
             android:layout_height="39dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="29dp"
-            android:layout_height="31dp"
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/google"
             app:layout_constraintStart_toStartOf="@+id/google"

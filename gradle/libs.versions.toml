@@ -7,10 +7,8 @@ coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
 kotlinxCoroutinesAndroid = "1.7.3"
 kotlinxCoroutinesCore = "1.7.3"
-loggingInterceptor = "4.9.0"
 
 appcompat = "1.6.1"  # Downgraded for stability
 loggingInterceptor = "4.9.3"
@@ -22,7 +20,6 @@ lifecycleViewmodelKtx = "2.8.6"
 navigationFragmentKtx = "2.8.1"
 navigationUiKtx = "2.8.1"
 playServicesAuth = "21.2.0"
-retrofit = "2.9.0"
 retrofit = "2.9.0"  # Downgraded for stability
 
 [libraries]

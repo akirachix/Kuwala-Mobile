@@ -6,6 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.akirachix.dishhub.AddItemManually
+import com.akirachix.dishhub.DairyCategory
+import com.akirachix.dishhub.FruitsCategory
+import com.akirachix.dishhub.GrainsCategory
+import com.akirachix.dishhub.VegetablesCategory
 import com.akirachix.dishhub.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
