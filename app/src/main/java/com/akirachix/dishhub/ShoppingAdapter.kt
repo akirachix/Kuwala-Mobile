@@ -8,48 +8,51 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.akirachix.dishhub.R
-data class Shop(
-    var name: String,
-    var quantity: Int,
-    var isChecked: Boolean = false
-)
+
+
+
 class ShoppingListAdapter(
-    private var items: List<ShoppingItem>,
-    private val onItemChecked: (ShoppingItem) -> Unit,
-    private val onItemDeleted: (ShoppingItem) -> Unit
-) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
+    private val shoppingList: MutableList<ShoppingItem>,
+    private val onDelete: (ShoppingItem) -> Unit
+) : RecyclerView.Adapter<ShoppingListAdapter.ShoppingItemViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val checkBox: CheckBox = view.findViewById(R.id.checkBoxItem)
-        val textViewName: TextView = view.findViewById(R.id.textViewItemName)
-        val textViewQuantity: TextView = view.findViewById(R.id.textViewItemQuantity)
-        val imageViewDelete: ImageView = view.findViewById(R.id.imageViewDelete)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingItemViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.shopping_list_item, parent, false)
+        return ShoppingItemViewHolder(view)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.shopping_list_item, parent, false)
-        return ViewHolder(view)
+
+    override fun onBindViewHolder(holder: ShoppingItemViewHolder, position: Int) {
+        val currentItem = shoppingList[position]
+        holder.bind(currentItem)
     }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.checkBox.isChecked = item.isChecked
-        holder.textViewName.text = item.name
-        holder.textViewQuantity.text = item.quantity.toString()
 
-        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            item.isChecked = isChecked
-            onItemChecked(item)
-        }
+    override fun getItemCount(): Int = shoppingList.size
 
-        holder.imageViewDelete.setOnClickListener {
-            onItemDeleted(item)
+    fun addItem(item: ShoppingItem) {
+        shoppingList.add(item)
+        notifyItemInserted(shoppingList.size - 1)
+    }
+
+    fun removeItem(item: ShoppingItem) {
+        val position = shoppingList.indexOf(item)
+        if (position != -1) {
+            shoppingList.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
-    override fun getItemCount() = items.size
 
-    fun updateItems(newItems: List<ShoppingItem>) {
-        items = newItems
-        notifyDataSetChanged()
+    inner class ShoppingItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val itemNameTextView: TextView = itemView.findViewById(R.id.textViewItemName)
+        private val itemQuantityTextView: TextView = itemView.findViewById(R.id.textViewItemQuantity)
+        private val deleteImageView: ImageView = itemView.findViewById(R.id.imageViewDelete)
+
+        fun bind(item: ShoppingItem) {
+            itemNameTextView.text = item.name
+            itemQuantityTextView.text = "Qty: ${item.quantityWithUnit}"
+
+            deleteImageView.setOnClickListener {
+                onDelete(item)
+            }
+        }
     }
 }
