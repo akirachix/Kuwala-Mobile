@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Signup"
+            android:exported="false" />
         <!-- Existing Activities -->
         <activity android:name=".FruitsListActivity" />
         <activity
@@ -34,33 +36,26 @@
             android:exported="false" />
         <activity
             android:name=".Teaserscreen"
-            android:exported="false" />
-
-        <!-- MainActivity: Handles logic for redirecting to Categories if signed in -->
+            android:exported="false" /> <!-- MainActivity: Handles logic for redirecting to Categories if signed in -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Additional activities -->
-        <activity
-            android:name=".SignUpActivity" />
+        </activity> <!-- Additional activities -->
+        <activity android:name=".SignUp" />
         <activity
             android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".Shopping"
-            android:exported="false" />
-
-        <!-- Categories activity -->
+            android:exported="false" /> <!-- Categories activity -->
         <activity
             android:name=".Categories"
             android:exported="true" />
-
     </application>
 
 </manifest>

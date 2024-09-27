@@ -20,7 +20,7 @@ class Teaserscreen : AppCompatActivity() {
 
         binding.btnbutton.setOnClickListener {
             Log.d("Teaserscreen", "Get Started button clicked")
-            val intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this,Signup::class.java)
             startActivity(intent)
         }
     }
