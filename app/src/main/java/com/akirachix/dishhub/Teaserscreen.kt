@@ -3,6 +3,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.akirachix.dishhub.databinding.ActivitySignupBinding
 import com.akirachix.dishhub.databinding.ActivityTeaserscreenBinding
 
 class Teaserscreen : AppCompatActivity() {
@@ -23,7 +24,7 @@ class Teaserscreen : AppCompatActivity() {
 
         binding.btnbutton.setOnClickListener {
             Log.d("Teaserscreen", "Get Started button clicked")
-            val intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this,Login::class.java)
             startActivity(intent)
         }
 

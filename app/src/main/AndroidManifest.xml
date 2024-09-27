@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,42 +16,68 @@
         tools:targetApi="31">
 
         <activity android:name=".FruitsListActivity" />
-        <activity android:name=".Login" android:exported="false" />
-        <activity android:name=".Fruit" android:exported="false" android:theme="@style/Theme.DishHub" />
-        <activity android:name=".Fruits" android:exported="false" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Categories" android:exported="false" android:theme="@style/Theme.DishHub" />
-        <activity android:name=".SignUpActivity" android:exported="true" />
-        <activity android:name=".HomeFragment" android:exported="false" />
-        <activity android:name=".Teaserscreen" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity
+            android:name=".Fruit"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".Fruits"
+            android:exported="false" />
+        <activity
+            android:name=".Categories"
+            android:exported="false"
+            android:theme="@style/Theme.DishHub" />
+        <activity
+            android:name=".bottom_nav_menu"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_nav_menu" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Teaserscreen"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesItem"
+            android:exported="false" />
+        <activity
+            android:name=".FruitsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".DairyCategory"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesCategory"
+            android:exported="false" />
+        <activity
+            android:name=".AddItemManually"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" android:exported="false" />
-        <activity android:name=".Shopping" android:exported="false" />
-
-        <!-- Add the missing FruitsCategory activity declaration -->
-        <activity android:name=".FruitsCategory" android:exported="true" />
-
-        <!-- Add the missing VegetablesCategory activity declaration -->
-        <activity android:name=".VegetablesCategory" android:exported="true" />
-
-        <activity android:name=".DairyCategoryCategory" android:exported="true" />
-
-        <activity android:name=".DairyCategory" android:exported="true" />
-
-        <activity android:name=".GrainsCategory" android:exported="true" />
-
-        <activity android:name=".GrainsCategoryCategory" android:exported="true" />
-
-        <activity android:name=".AddItemManually" android:exported="true" />
-
-        <!-- Add the missing RecipeDisplay activity declaration -->
-        <activity android:name=".RecipeDisplay" android:exported="true" />
-
     </application>
 
 </manifest>

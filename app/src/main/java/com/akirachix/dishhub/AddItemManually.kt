@@ -1,78 +1,66 @@
 package com.akirachix.dishhub
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import com.akirachix.dishhub.R.*
 import com.akirachix.dishhub.databinding.ActivityAddItemManuallyBinding
 
 class AddItemManually : AppCompatActivity() {
-    lateinit var binding: ActivityAddItemManuallyBinding
-
-
+    private lateinit var binding: ActivityAddItemManuallyBinding
     private var quantity: Int = 4
-    private lateinit var displayQuantity: TextView
-    private lateinit var foodNameEditText: EditText
-    private lateinit var categoryEditText: EditText
+    private lateinit var spinnerCategory: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddItemManuallyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val addCircle: ImageView = findViewById(id.addCircle)
-        val subtractCircle: ImageView = findViewById(id.subtractCircle)
-        val cancelButton: Button = findViewById(id.button5)
-        val saveButton: Button = findViewById(id.button6)
-        val backArrow: ImageView = findViewById(id.backArrow)
-
-        addCircle.setOnClickListener {
-            increaseQuantity()
+        spinnerCategory = binding.spinnerCategory
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.food_categories,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerCategory.adapter = adapter
         }
 
-        subtractCircle.setOnClickListener {
-            decreaseQuantity()
-        }
+        binding.addCircle.setOnClickListener { increaseQuantity() }
+        binding.subtractCircle.setOnClickListener { decreaseQuantity() }
+        binding.button5.setOnClickListener { finish() }
+        binding.button6.setOnClickListener { saveItem() }
+        binding.backArrow.setOnClickListener { finish() }
 
-        cancelButton.setOnClickListener {
-            finish()
-        }
-
-        saveButton.setOnClickListener {
-            saveItem()
-        }
-
-        backArrow.setOnClickListener {
-            finish()
-        }
+        displayQuantity()
     }
 
     private fun increaseQuantity() {
         quantity++
-        displayQuantity.text = quantity.toString()
+        displayQuantity()
     }
 
     private fun decreaseQuantity() {
         if (quantity > 1) {
             quantity--
-            displayQuantity.text = quantity.toString()
+            displayQuantity()
         }
     }
 
+    private fun displayQuantity() {
+        binding.abQuantity.text = quantity.toString()
+    }
+
     private fun saveItem() {
-        val foodName = foodNameEditText.text.toString()
-        val category = categoryEditText.text.toString()
+        val foodName = binding.edFoodName.text.toString()
+        val category = spinnerCategory.selectedItem.toString()
 
         if (foodName.isNotEmpty() && category.isNotEmpty()) {
-
+            toast("Food item saved: $foodName, Category: $category")
             finish()
         } else {
-
-            toast("Please enter food name and category.")
+            toast("Please enter food name and select a category.")
         }
     }
 
