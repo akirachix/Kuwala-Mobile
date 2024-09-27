@@ -81,6 +81,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#883418"
         android:text="Save"
+        android:textAllCaps="false"
         android:textColor="#F8A11B"
         android:textSize="18sp"
         android:textStyle="bold"

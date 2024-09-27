@@ -14,11 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
-
-        <!-- Existing activities -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
         <activity android:name=".FruitsListActivity" />
         <activity
             android:name=".Fruit"
@@ -38,9 +33,11 @@
         <activity
             android:name=".Login"
             android:exported="false" />
+
         <activity
-            android:name=".Signup"
+            android:name=".SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".Teaserscreen"
             android:exported="false" />
@@ -63,7 +60,7 @@
             android:name=".GrainsCategory"
             android:exported="false" />
         <activity
-            android:name=".GrainsAdapter"
+            android:name=".DairyCategory"
             android:exported="false" />
         <activity
             android:name=".VegetablesCategory"
@@ -71,16 +68,15 @@
         <activity
             android:name=".AddItemManually"
             android:exported="false" />
-
         <activity
-            android:name=".UserProfile"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.akirachix.dishhub
 
 import DairyAdapter
+import DairyApiService
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
@@ -10,9 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akirachix.dishhub.databinding.ActivityDairyCategoryBinding
-import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,7 +22,7 @@ class DairyCategory : AppCompatActivity() {
 
     private lateinit var binding: ActivityDairyCategoryBinding
     private lateinit var adapter: DairyAdapter
-    private var foodItems: List<Dairy> = listOf() // Now refers to Grains instead of Vegetables
+    private var foodItems: List<Dairy> = listOf()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class DairyCategory : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DairyAdapter(emptyList()) { item -> onFoodItemSelected(item) } // Changed to GrainsAdapter
+        adapter = DairyAdapter(emptyList()) { item -> onFoodItemSelected(item) }
         binding.recyclerView.adapter = adapter
     }
 
@@ -67,7 +68,7 @@ class DairyCategory : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(DairyApiService::class.java)
-        service.getFoodItems().enqueue(object : Callback<List<Dairy>> { // Changed to List<Grains>
+        service.getFoodItems().enqueue(object : Callback<List<Dairy>> {
             override fun onResponse(call: Call<List<Dairy>>, response: Response<List<Dairy>>) {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()

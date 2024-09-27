@@ -54,7 +54,8 @@ class FruitsAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun updateItems(newItems: List<Fruits>) {
+    fun updateItems(newItems: List<Fruits
+            >) {
         items = newItems
         notifyDataSetChanged()
     }

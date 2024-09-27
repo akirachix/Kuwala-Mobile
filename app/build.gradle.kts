@@ -53,9 +53,12 @@ dependencies {
     implementation ("com.google.android.material:material:1.13.0-alpha06")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     val fragment_version = "1.5.7"
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
 }

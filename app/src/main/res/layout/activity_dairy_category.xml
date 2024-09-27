@@ -85,6 +85,7 @@
         android:textColor="#F8A11B"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textAllCaps="false"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

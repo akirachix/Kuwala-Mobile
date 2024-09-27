@@ -8,11 +8,11 @@
 
     <CheckBox
         android:id="@+id/customCheckBox"
-        android:layout_width="34dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:buttonTint="@color/yellow"/>
+        android:layout_marginTop="15dp"
+        android:buttonTint="@color/yellow" />
 
 
     <TextView
@@ -60,5 +60,5 @@
         android:layout_height="28dp"
         android:layout_marginLeft="340dp"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/minus" />
+        app:srcCompat="@drawable/negativeminus" />
 </com.google.android.material.card.MaterialCardView>

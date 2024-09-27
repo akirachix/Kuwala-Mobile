@@ -21,7 +21,7 @@ class FruitsCategory : AppCompatActivity() {
 
     private lateinit var binding: ActivityFruitsCategoryBinding
     private lateinit var adapter: FruitsAdapter
-    private var foodItems: List<Fruits> = listOf() // Now refers to Grains instead of Vegetables
+    private var foodItems: List<Fruits> = listOf()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class FruitsCategory : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = FruitsAdapter(emptyList()) { item -> onFoodItemSelected(item) } // Changed to GrainsAdapter
+        adapter = FruitsAdapter(emptyList()) { item -> onFoodItemSelected(item) }
         binding.recyclerView.adapter = adapter
     }
 
@@ -67,7 +67,7 @@ class FruitsCategory : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(FruitsApiService::class.java)
-        service.getFoodItems().enqueue(object : Callback<List<Fruits>> { // Changed to List<Grains>
+        service.getFoodItems().enqueue(object : Callback<List<Fruits>> {
             override fun onResponse(call: Call<List<Fruits>>, response: Response<List<Fruits>>) {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()
@@ -91,7 +91,7 @@ class FruitsCategory : AppCompatActivity() {
         }
     }
 
-    private fun onFoodItemSelected(item: Fruits) { // Changed to Grains
+    private fun onFoodItemSelected(item: Fruits) {
         Toast.makeText(this, "You selected: ${item.name}", Toast.LENGTH_SHORT).show()
         binding.searchView.setText(item.name)
         binding.recyclerView.visibility = View.GONE
