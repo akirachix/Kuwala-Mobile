@@ -1,4 +1,3 @@
-
 package com.akirachix.dishhub
 
 import android.Manifest
@@ -80,6 +79,12 @@ class Profile : AppCompatActivity() {
 
         saveProfileButton.setOnClickListener {
             Toast.makeText(this, "Profile Saved!", Toast.LENGTH_SHORT).show()
+        }
+
+        // Back button logic
+        val backButton: ImageView = findViewById(R.id.btnback)
+        backButton.setOnClickListener {
+            finish() // Ends this activity and returns to the previous one
         }
     }
 

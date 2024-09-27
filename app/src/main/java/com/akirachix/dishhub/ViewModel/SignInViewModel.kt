@@ -260,8 +260,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.akirachix.dishhub.api.ApiClient
 import com.akirachix.dishhub.api.ApiInterface
+import com.akirachix.dishhub.api.RetrofitClient
 import com.akirachix.dishhub.model.LoginRequest
 import com.akirachix.dishhub.model.LoginResponse
 import kotlinx.coroutines.launch
@@ -273,7 +273,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     private val _loginResult = MutableLiveData<Result<String>>()
     val loginResult: LiveData<Result<String>> = _loginResult
 
-    private val apiService = ApiClient.retrofit.create(ApiInterface::class.java)
+    private val apiService = RetrofitClient.ApiClient.retrofit.create(ApiInterface::class.java)
 
     // API Login Logic with Coroutines
     fun login(username: String, password: String) {

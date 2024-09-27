@@ -80,13 +80,14 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_view_border"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etCategory"
         android:layout_width="337dp"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/etQuantity"
@@ -94,9 +95,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCategory">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <Spinner
+            android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -146,66 +149,32 @@
         app:layout_constraintStart_toEndOf="@+id/subtractCircle"
         app:layout_constraintTop_toBottomOf="@+id/etQuantity" />
 
-<!--    <Button-->
-<!--        android:id="@+id/button5"-->
-<!--        android:layout_width="110dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginStart="38dp"-->
-<!--        android:layout_marginTop="56dp"-->
-<!--        android:layout_marginEnd="119dp"-->
-<!--        android:layout_marginBottom="106dp"-->
-<!--        android:backgroundTint="#F8A11B"-->
-<!--        android:text="Cancel"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textColor="#883418"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/button6"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/subtractCircle" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/button6"-->
-<!--        android:layout_width="108dp"-->
-<!--        android:layout_height="49dp"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:layout_marginEnd="36dp"-->
-<!--        android:layout_marginBottom="103dp"-->
-<!--        android:backgroundTint="#883418"-->
-<!--        android:text="Save"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textColor="#F8A11B"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/addCircle" />-->
-
-
     <Button
         android:id="@+id/button5"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
+        android:layout_width="136dp"
+        android:layout_height="53dp"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F8A11B"
         android:text="Cancel"
+        android:textAllCaps="false"
         android:textColor="#883418"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button6"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subtractCircle"
         app:layout_constraintWidth_percent="0.4" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="140dp"
-        android:layout_height="47dp"
+        android:layout_width="137dp"
+        android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="#883418"
         android:text="Save"
+        android:textAllCaps="false"
         android:textColor="#F8A11B"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -213,6 +182,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button5"
         app:layout_constraintTop_toTopOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="0.4" />
 
     <ImageView

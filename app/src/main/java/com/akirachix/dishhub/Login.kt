@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.akirachix.dishhub.databinding.ActivityLoginBinding
+import com.akirachix.dishhub.databinding.ActivitySignupBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class Login : AppCompatActivity() {
@@ -19,10 +20,10 @@ class Login : AppCompatActivity() {
         setupTextWatchers()
 
         binding.txtsignUp.setOnClickListener {
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this,ActivitySignupBinding::class.java))
         }
 
-        binding.btnlogin.setOnClickListener {
+        binding.btnLog.setOnClickListener {
             if (validateInputs()) {
                 // Proceed to the next activity (e.g., Categories)
                 startActivity(Intent(this, Categories::class.java))
@@ -31,7 +32,7 @@ class Login : AppCompatActivity() {
     }
 
     private fun setupTextWatchers() {
-        binding.etmail.addTextChangedListener(createTextWatcher(binding.tilEmail))
+        binding.etpss.addTextChangedListener(createTextWatcher(binding.tilEmail))
         binding.etpss.addTextChangedListener(createTextWatcher(binding.tilPassword))
     }
 
@@ -51,7 +52,7 @@ class Login : AppCompatActivity() {
         clearErrors()
         var formError = false
 
-        val email = binding.etmail.text.toString()
+        val email = binding.etpss.text.toString()
         if (email.isBlank()) {
             formError = true
             binding.tilEmail.error = "Email is required"

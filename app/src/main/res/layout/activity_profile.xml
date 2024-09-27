@@ -129,6 +129,7 @@
         android:fontFamily="@font/lato"
         android:text="Save"
         android:textColor="#883418"
+
         android:textSize="20sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
