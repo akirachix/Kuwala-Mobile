@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +18,7 @@
             android:name=".Signup"
             android:exported="false" />
         <!-- Existing Activities -->
+
         <activity android:name=".FruitsListActivity" />
         <activity
             android:name=".Fruit"
@@ -28,12 +28,17 @@
             android:name=".Fruits"
             android:exported="false" />
         <activity
-            android:name=".VegetablesCategory"
+            android:name=".Categories"
             android:exported="false"
             android:theme="@style/Theme.DishHub" />
         <activity
+            android:name=".bottom_nav_menu"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_nav_menu" />
+        <activity
             android:name=".Login"
             android:exported="false" />
+
         <activity
             android:name=".Teaserscreen"
             android:exported="false" /> <!-- MainActivity: Handles logic for redirecting to Categories if signed in -->
@@ -47,8 +52,17 @@
             </intent-filter>
         </activity> <!-- Additional activities -->
         <activity android:name=".SignUp" />
+            android:name=".SignUpActivity"
+            android:exported="false" />
+
         <activity
-            android:name=".Profile"
+            android:name=".Teaserscreen"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsList"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesList"
             android:exported="false" />
         <activity
             android:name=".Shopping"
@@ -56,6 +70,35 @@
         <activity
             android:name=".Categories"
             android:exported="true" />
+            android:name=".VegetablesAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesItem"
+            android:exported="false" />
+        <activity
+            android:name=".FruitsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".GrainsCategory"
+            android:exported="false" />
+        <activity
+            android:name=".DairyCategory"
+            android:exported="false" />
+        <activity
+            android:name=".VegetablesCategory"
+            android:exported="false" />
+        <activity
+            android:name=".AddItemManually"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

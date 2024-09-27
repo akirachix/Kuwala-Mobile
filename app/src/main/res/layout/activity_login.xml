@@ -110,6 +110,7 @@
             android:fontFamily="@font/lato"
             android:text="Login"
             android:textSize="20dp"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilPassword" />

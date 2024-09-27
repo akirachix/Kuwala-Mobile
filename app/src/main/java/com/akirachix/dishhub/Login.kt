@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.akirachix.dishhub.databinding.ActivityLoginBinding
+import com.akirachix.dishhub.databinding.ActivitySignupBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class Login : AppCompatActivity() {
@@ -20,6 +21,7 @@ class Login : AppCompatActivity() {
 
         binding.txtsignUp.setOnClickListener {
             startActivity(Intent(this,Signup::class.java))
+            startActivity(Intent(this,ActivitySignupBinding::class.java))
         }
 
         binding.btnlogin.setOnClickListener {

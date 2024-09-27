@@ -1,27 +1,20 @@
-package com.akirachix.dishhub.api
+package com.akirachix.dishhub
 
+import ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitClient {
+object VegetablesRetrofitInstance {
     private const val BASE_URL = "https://dishhub-2ea9d6ca8e11.herokuapp.com/"
 
-
-    private val retrofit: Retrofit by lazy {
+    private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    val instance: ApiService by lazy {
-
-    val instance: ApiService by lazy {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
+    val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
 }
