@@ -1,6 +1,5 @@
 package com.akirachix.dishhub
 
-import ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

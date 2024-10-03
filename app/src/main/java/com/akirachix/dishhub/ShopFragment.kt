@@ -32,7 +32,7 @@ class ShopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Find views by their IDs
+
         val addButton: Button = view.findViewById(R.id.addButton)
         val saveButton: Button = view.findViewById(R.id.btnsave)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewShoppingList)
@@ -41,7 +41,7 @@ class ShopFragment : Fragment() {
         val textInputName: TextInputEditText = textInputNameLayout.editText as TextInputEditText
         val textInputQuantity: TextInputEditText = textInputQuantityLayout.editText as TextInputEditText
 
-        // Profile navigation
+
         val profileButton: ImageView = view.findViewById(R.id.btntoprofile)
         profileButton.setOnClickListener {
             val intent = Intent(requireContext(), Profile::class.java)
@@ -55,7 +55,7 @@ class ShopFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = shoppingListAdapter
 
-        // Add button functionality to add an item to the list
+
         addButton.setOnClickListener {
             val itemName = textInputName.text.toString().trim()
             val itemQuantity = textInputQuantity.text.toString().trim()
@@ -71,12 +71,11 @@ class ShopFragment : Fragment() {
             }
         }
 
-        // Save button functionality to save the shopping list
         saveButton.setOnClickListener {
             saveShoppingList(shoppingList)
         }
 
-        // Load existing shopping list
+
         loadShoppingList()
     }
 

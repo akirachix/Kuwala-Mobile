@@ -1,39 +1,6 @@
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.TextView
-//import androidx.recyclerview.widget.RecyclerView
-//import com.akirachix.dishhub.Vegetables
-//
-//class VegetablesAdapter(
-//    private var items: List<Vegetables>,
-//    private val itemClick: (Vegetables) -> Unit
-//) : RecyclerView.Adapter<VegetablesAdapter.VegetablesViewHolder>() {
-//
-//    class VegetablesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-//        val textView: TextView = view.findViewById(android.R.id.text1)
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VegetablesViewHolder {
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(android.R.layout.simple_list_item_1, parent, false)
-//        return VegetablesViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: VegetablesViewHolder, position: Int) {
-//        val item = items[position]
-//        holder.textView.text = item.name
-//        holder.view.setOnClickListener { itemClick(item) }
-//    }
-//
-//    override fun getItemCount(): Int = items.size
-//
-//    fun updateItems(newItems: List<Vegetables>) {
-//        items = newItems
-//        notifyDataSetChanged()
-//    }
-//}
+package com.akirachix.dishhub
 
+import Vegetables
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +8,10 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.akirachix.dishhub.R
-import com.akirachix.dishhub.Vegetables
+
+
+
+
 
 class VegetablesAdapter(
     private var items: List<Vegetables>,
@@ -67,6 +36,9 @@ class VegetablesAdapter(
         val item = items[position]
         holder.foodName.text = item.name
         holder.quantity.text = item.quantity.toString()
+
+        // Set checkbox state based on isSelected property
+        holder.checkBox.isChecked = item.isSelected
 
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.isSelected = isChecked
