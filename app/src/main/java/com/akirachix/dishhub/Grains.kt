@@ -7,4 +7,5 @@ data class Grains(
     var quantity: Int = 0,
     var isSelected: Boolean = false,
     var avatar:String,
+    val category: String
 )

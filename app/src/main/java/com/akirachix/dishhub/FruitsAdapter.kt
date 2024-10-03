@@ -1,3 +1,10 @@
+//import android.view.LayoutInflater
+
+
+
+
+
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,8 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.akirachix.dishhub.Fruits
-import com.akirachix.dishhub.Grains
 import com.akirachix.dishhub.R
+
+
 
 class FruitsAdapter(
     private var items: List<Fruits>,
@@ -18,8 +26,6 @@ class FruitsAdapter(
         val checkBox: CheckBox = view.findViewById(R.id.customCheckBox)
         val foodName: TextView = view.findViewById(R.id.etFoodName)
         val quantity: TextView = view.findViewById(R.id.etQuantity)
-        val plusButton: ImageView = view.findViewById(R.id.imageView10)
-        val minusButton: ImageView = view.findViewById(R.id.imageView16)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FruitsViewHolder {
@@ -33,20 +39,12 @@ class FruitsAdapter(
         holder.foodName.text = item.name
         holder.quantity.text = item.quantity.toString()
 
+        // Set the checkbox state
+        holder.checkBox.isChecked = item.isSelected
+
+        // Handle the checkbox change
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            item.isSelected = isChecked
-        }
-
-        holder.plusButton.setOnClickListener {
-            item.quantity++
-            holder.quantity.text = item.quantity.toString()
-        }
-
-        holder.minusButton.setOnClickListener {
-            if (item.quantity > 0) {
-                item.quantity--
-                holder.quantity.text = item.quantity.toString()
-            }
+            item.isSelected = isChecked // Update the isSelected property
         }
 
         holder.itemView.setOnClickListener { itemClick(item) }
@@ -54,8 +52,7 @@ class FruitsAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun updateItems(newItems: List<Fruits
-            >) {
+    fun updateItems(newItems: List<Fruits>) {
         items = newItems
         notifyDataSetChanged()
     }

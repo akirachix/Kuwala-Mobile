@@ -1,6 +1,5 @@
 package com.akirachix.dishhub
 
-
 import HomeFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +25,7 @@ class Categories : AppCompatActivity() {
                     true
                 }
                 R.id.pantry -> {
+                    // Assuming PantryFragment does not require parameters, instantiate it directly
                     loadFragment(PantryFragment())
                     true
                 }

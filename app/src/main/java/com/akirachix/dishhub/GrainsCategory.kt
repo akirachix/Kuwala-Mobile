@@ -1,6 +1,5 @@
 package com.akirachix.dishhub
 
-import GrainsAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
@@ -15,6 +14,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+// You may want to keep Constants in a separate file for better organization
+object Constants {
+    const val BASE_URL = "https://example.com/api/"  // Replace with your actual base URL
+}
 
 @Suppress("DEPRECATION")
 class GrainsCategory : AppCompatActivity() {
@@ -34,6 +38,7 @@ class GrainsCategory : AppCompatActivity() {
         setupSearchView()
         setupBackButton()
         fetchFoodItems()
+        setupSaveButton() // New method to set up button behavior
     }
 
     private fun setupRecyclerView() {
@@ -55,14 +60,12 @@ class GrainsCategory : AppCompatActivity() {
     }
 
     private fun setupBackButton() {
-        binding.imageView.setOnClickListener {
-            onBackPressed()
-        }
+        binding.imageView.setOnClickListener { onBackPressed() }
     }
 
     private fun fetchFoodItems() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://dishhub-2ea9d6ca8e11.herokuapp.com/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -76,7 +79,7 @@ class GrainsCategory : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Grains>>, t: Throwable) {
-                Toast.makeText(this@GrainsCategory, "Failed to fetch items", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@GrainsCategory, "Failed to fetch items: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -88,6 +91,19 @@ class GrainsCategory : AppCompatActivity() {
             adapter.updateItems(filteredList)
         } else {
             binding.recyclerView.visibility = View.GONE
+        }
+    }
+
+    private fun setupSaveButton() {
+        binding.button.setOnClickListener { // Connect to your new Save button
+            val selectedItems = adapter.getSelectedItems()
+            if (selectedItems.isNotEmpty()) {
+                // Save selected items or show a success message
+                Toast.makeText(this, "Saved ${selectedItems.size} items to pantry", Toast.LENGTH_SHORT).show()
+                // TODO: Implement the actual saving to a database or shared preferences
+            } else {
+                Toast.makeText(this, "No items selected to save", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

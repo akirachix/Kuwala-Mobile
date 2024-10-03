@@ -1,6 +1,6 @@
 package com.akirachix.dishhub
 
-import com.akirachix.dishhub.Vegetables
+
 import retrofit2.Call
 import retrofit2.http.GET
 

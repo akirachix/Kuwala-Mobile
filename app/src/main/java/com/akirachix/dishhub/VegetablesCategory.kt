@@ -1,8 +1,8 @@
+
 package com.akirachix.dishhub
 
-import ApiService
-import VegetablesAdapter
-import android.annotation.SuppressLint
+import Vegetables
+import com.akirachix.dishhub.databinding.ActivityVegetablesCategoryBinding
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,23 +10,25 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akirachix.dishhub.databinding.ActivityVegetablesCategoryBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+
+
+
 class VegetablesCategory : AppCompatActivity() {
 
     private lateinit var binding: ActivityVegetablesCategoryBinding
     private lateinit var adapter: VegetablesAdapter
     private var foodItems: List<Vegetables> = listOf()
+    private val selectedItems = mutableListOf<Vegetables>() // Store selected items
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityVegetablesCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -34,6 +36,7 @@ class VegetablesCategory : AppCompatActivity() {
         setupSearchView()
         setupBackButton()
         fetchFoodItems()
+        setupSaveButton() // Set up the save button
     }
 
     private fun setupRecyclerView() {
@@ -45,11 +48,9 @@ class VegetablesCategory : AppCompatActivity() {
     private fun setupSearchView() {
         binding.searchView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 filterItems(s.toString())
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
     }
@@ -57,6 +58,16 @@ class VegetablesCategory : AppCompatActivity() {
     private fun setupBackButton() {
         binding.imageView.setOnClickListener {
             onBackPressed()
+        }
+    }
+
+    private fun setupSaveButton() {
+        binding.saveButton.setOnClickListener {
+            if (selectedItems.isNotEmpty()) {
+                saveSelectedItems()  // Call the function to save selected items
+            } else {
+                Toast.makeText(this, "No items selected", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -72,6 +83,8 @@ class VegetablesCategory : AppCompatActivity() {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()
                     adapter.updateItems(foodItems)
+                } else {
+                    Toast.makeText(this@VegetablesCategory, "Failed to fetch items", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -92,8 +105,32 @@ class VegetablesCategory : AppCompatActivity() {
     }
 
     private fun onFoodItemSelected(item: Vegetables) {
-        Toast.makeText(this, "You selected: ${item.name}", Toast.LENGTH_SHORT).show()
-        binding.searchView.setText(item.name)
-        binding.recyclerView.visibility = View.GONE
+        // Toggle selection state
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item)
+            item.isSelected = false
+            Toast.makeText(this, "${item.name} deselected", Toast.LENGTH_SHORT).show()
+        } else {
+            selectedItems.add(item)
+            item.isSelected = true
+            Toast.makeText(this, "${item.name} selected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveSelectedItems() {
+        selectedItems.forEach { vegetable ->
+            val pantryItem = PantryItems(
+                id = vegetable.id,
+                name = vegetable.name,
+                quantity = vegetable.quantity,
+
+            )
+            // Add item to the shared pantry repository
+            PantryRepository.addPantryItem(pantryItem) // Method to add item to pantry
+
+            Toast.makeText(this, "${pantryItem.name} saved to pantry", Toast.LENGTH_SHORT).show()
+        }
+
+        selectedItems.clear() // Clear selection after saving
     }
 }
