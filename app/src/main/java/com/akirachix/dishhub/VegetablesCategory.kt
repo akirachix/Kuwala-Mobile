@@ -2,6 +2,7 @@
 package com.akirachix.dishhub
 
 import Vegetables
+import VegetablesAdapter
 import com.akirachix.dishhub.databinding.ActivityVegetablesCategoryBinding
 import android.os.Bundle
 import android.text.Editable
@@ -15,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 
 
@@ -41,7 +41,7 @@ class VegetablesCategory : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = VegetablesAdapter(emptyList()) { item -> onFoodItemSelected(item) }
+        adapter = VegetablesAdapter(emptyList(), ::onFoodItemSelected)
         binding.recyclerView.adapter = adapter
     }
 
@@ -78,7 +78,7 @@ class VegetablesCategory : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(ApiService::class.java)
-        service.getFoodItems().enqueue(object : Callback<List<Vegetables>> {
+        service.getFruits().enqueue(object : Callback<List<Vegetables>> {
             override fun onResponse(call: Call<List<Vegetables>>, response: Response<List<Vegetables>>) {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()
@@ -105,7 +105,6 @@ class VegetablesCategory : AppCompatActivity() {
     }
 
     private fun onFoodItemSelected(item: Vegetables) {
-        // Toggle selection state
         if (selectedItems.contains(item)) {
             selectedItems.remove(item)
             item.isSelected = false
@@ -115,22 +114,22 @@ class VegetablesCategory : AppCompatActivity() {
             item.isSelected = true
             Toast.makeText(this, "${item.name} selected", Toast.LENGTH_SHORT).show()
         }
+
+        // Notify adapter about the change
+        adapter.notifyItemChanged(foodItems.indexOf(item))
     }
 
     private fun saveSelectedItems() {
         selectedItems.forEach { vegetable ->
             val pantryItem = PantryItems(
-                id = vegetable.id,
                 name = vegetable.name,
-                quantity = vegetable.quantity,
-
+                quantity = vegetable.quantity
             )
-            // Add item to the shared pantry repository
             PantryRepository.addPantryItem(pantryItem) // Method to add item to pantry
 
             Toast.makeText(this, "${pantryItem.name} saved to pantry", Toast.LENGTH_SHORT).show()
         }
 
-        selectedItems.clear() // Clear selection after saving
+        selectedItems.clear()
     }
 }

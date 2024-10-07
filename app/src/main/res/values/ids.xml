@@ -2,4 +2,11 @@
 <resources>
     <item name="recipe" type="id" />
     <item name="pantry" type="id" />
+    <item name="fragment_container" type="id" />
+    <item name="item" type="id" />
+    <item name="quantity" type="id" />
+    <item name="negative" type="id" />
+    <item name="category" type="id" />
+    <item name="positive" type="id" />
+    <item name="checkbox" type="id" />
 </resources>

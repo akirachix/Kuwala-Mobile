@@ -15,24 +15,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishHub"
         tools:targetApi="31">
+
+        <!-- Add your AdMob App ID here -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7782822354200032~2551379470" />
+
         <activity
-            android:name=".RecipeItem"
+            android:name=".SessionManager"
             android:exported="false" />
-        <!-- MainActivity: The only declaration to serve as the entry point -->
+
+        <!-- Specify MainActivity as the launcher activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- All other activities declared -->
+        </activity>
+
+        <!-- Other activities -->
         <activity
-            android:name=".Signup"
+            android:name=".api.ApiConstants"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecipeItem"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
             android:exported="false" />
         <activity
             android:name=".RecipeDisplay"
@@ -73,8 +87,6 @@
         <activity
             android:name=".Shopping"
             android:exported="false" />
-
-
         <activity
             android:name=".VegetablesAdapter"
             android:exported="false" />

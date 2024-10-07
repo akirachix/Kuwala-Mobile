@@ -1,17 +1,14 @@
-
-
-
-
+//
 //
 //package com.akirachix.dishhub
 //
 //import FruitsAdapter
 //import android.annotation.SuppressLint
+//import android.content.SharedPreferences
 //import android.os.Bundle
 //import android.text.Editable
 //import android.text.TextWatcher
 //import android.view.View
-//import android.widget.Button
 //import android.widget.Toast
 //import androidx.appcompat.app.AppCompatActivity
 //import androidx.recyclerview.widget.LinearLayoutManager
@@ -109,7 +106,22 @@
 //        if (selectedItems.isNotEmpty()) {
 //            val itemNames = selectedItems.joinToString(", ") { it.name }
 //            Toast.makeText(this, "Saved to Pantry: $itemNames", Toast.LENGTH_SHORT).show()
-//            // Implement your saving logic here (e.g., saving to a database)
+//
+//            // Save to SharedPreferences
+//            val sharedPreferences: SharedPreferences = getSharedPreferences("PantryPreferences", MODE_PRIVATE)
+//            val editor = sharedPreferences.edit()
+//
+//
+//            val existingItems = sharedPreferences.getString("PantryItems", "") ?: ""
+//            val newItems = selectedItems.joinToString("|") { "${it.name},fruit,${it.quantity}" }
+//
+//            // Save combined items
+//            editor.putString("PantryItems", if (existingItems.isNotEmpty()) "$existingItems|$newItems" else newItems)
+//            editor.apply()
+//
+//
+//            selectedItems.forEach { it.isSelected = false }  // Reset selection state
+//            adapter.updateItems(foodItems)  // Update the adapter to refresh the view
 //        } else {
 //            Toast.makeText(this, "No items selected to save.", Toast.LENGTH_SHORT).show()
 //        }
@@ -120,9 +132,8 @@
 
 
 
-package com.akirachix.dishhub
 
-import FruitsAdapter
+package com.akirachix.dishhub
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -164,7 +175,7 @@ class FruitsCategory : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = FruitsAdapter(emptyList()) { item -> onFoodItemSelected(item) }
+        adapter = FruitsAdapter(foodItems) { item -> onFoodItemSelected(item) }
         binding.recyclerView.adapter = adapter
     }
 
@@ -207,18 +218,12 @@ class FruitsCategory : AppCompatActivity() {
 
     private fun filterItems(query: String) {
         val filteredList = foodItems.filter { it.name.contains(query, true) }
-        if (filteredList.isNotEmpty()) {
-            binding.recyclerView.visibility = View.VISIBLE
-            adapter.updateItems(filteredList)
-        } else {
-            binding.recyclerView.visibility = View.GONE
-        }
+        adapter.updateItems(filteredList)
     }
 
     private fun onFoodItemSelected(item: Fruits) {
         Toast.makeText(this, "You selected: ${item.name}", Toast.LENGTH_SHORT).show()
         binding.searchView.setText(item.name)
-        binding.recyclerView.visibility = View.GONE
     }
 
     private fun saveItemsToPantry() {
@@ -231,7 +236,6 @@ class FruitsCategory : AppCompatActivity() {
             val sharedPreferences: SharedPreferences = getSharedPreferences("PantryPreferences", MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
-            // Retrieve existing items, if any
             val existingItems = sharedPreferences.getString("PantryItems", "") ?: ""
             val newItems = selectedItems.joinToString("|") { "${it.name},fruit,${it.quantity}" }
 
@@ -239,7 +243,6 @@ class FruitsCategory : AppCompatActivity() {
             editor.putString("PantryItems", if (existingItems.isNotEmpty()) "$existingItems|$newItems" else newItems)
             editor.apply()
 
-            // Clear selection after saving
             selectedItems.forEach { it.isSelected = false }  // Reset selection state
             adapter.updateItems(foodItems)  // Update the adapter to refresh the view
         } else {

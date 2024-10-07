@@ -5,9 +5,6 @@
         android:id="@+id/home"
         android:iconTint="@color/Orange"
         />
-    <item android:id="@+id/recipe"
-        android:icon="@drawable/recipe"
-        android:title="Recipe"/>
     <item android:title="Pantry"
         android:icon="@drawable/store"
         android:id="@+id/pantry"/>

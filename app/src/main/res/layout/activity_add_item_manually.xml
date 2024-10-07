@@ -84,35 +84,18 @@
             android:background="@drawable/search_view_border"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etCategory"
-        android:layout_width="337dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/etQuantity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCategory">
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/etQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="64dp"
         android:text="Quantity"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/textCategory" />
 
     <ImageView
         android:id="@+id/subtractCircle"
@@ -204,14 +187,5 @@
         app:layout_constraintStart_toStartOf="@+id/subtractCircle"
         app:layout_constraintTop_toTopOf="@+id/subtractCircle"
         app:srcCompat="@drawable/subtract" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="36dp"
-        android:layout_height="31dp"
-        app:layout_constraintBottom_toBottomOf="@+id/etCategory"
-        app:layout_constraintEnd_toEndOf="@+id/etCategory"
-        app:layout_constraintTop_toTopOf="@+id/etCategory"
-        app:srcCompat="@drawable/dropdown" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

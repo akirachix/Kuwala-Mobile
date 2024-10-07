@@ -49,7 +49,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etmail"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
@@ -81,7 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+
                 android:inputType="textPassword"
+                app:passwordToggleEnabled="true"
                 app:textInputLayoutFocusedRectEnabled="true"
                 android:textSize="20dp" />
 
@@ -113,7 +115,8 @@
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/tilPassword"
+            />
 
         <TextView
             android:id="@+id/tvwelcome"

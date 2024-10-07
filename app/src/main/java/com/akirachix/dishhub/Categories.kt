@@ -20,17 +20,17 @@ class Categories : AppCompatActivity() {
                     loadFragment(HomeFragment())
                     true
                 }
-                R.id.recipe -> {
-                    loadFragment(RecipesFragment())
-                    true
-                }
+//                R.id.recipe -> {
+//                    loadFragment(RecipesFragment())
+//                    true
+//                }
                 R.id.pantry -> {
                     // Assuming PantryFragment does not require parameters, instantiate it directly
                     loadFragment(PantryFragment())
                     true
                 }
                 R.id.shop -> {
-                    loadFragment(ShopFragment()) // Ensure this fragment is defined
+                    loadFragment(ShopFragment())
                     true
                 }
                 else -> true

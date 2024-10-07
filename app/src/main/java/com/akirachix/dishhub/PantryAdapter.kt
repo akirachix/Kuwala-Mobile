@@ -1,8 +1,3 @@
-
-
-
-
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.akirachix.dishhub.PantryItems
+import com.akirachix.dishhub.PantryRepository
 import com.akirachix.dishhub.R
 
 
 
-
-
-// PantryAdapter.kt
 class PantryAdapter(
     private val pantryItems: List<PantryItems>,
     private val selectedIngredients: MutableList<String>
@@ -38,9 +31,7 @@ class PantryAdapter(
 
             checkbox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    if (!selectedIngredients.contains(ingredient.name)) {
-                        selectedIngredients.add(ingredient.name)
-                    }
+                    selectedIngredients.add(ingredient.name)
                 } else {
                     selectedIngredients.remove(ingredient.name)
                 }
@@ -75,16 +66,16 @@ class PantryAdapter(
 
     fun filter(query: String) {
         filteredItems = if (query.isEmpty()) {
-            pantryItems
+            pantryItems.toList()  // Reset to original pantry items
         } else {
-            pantryItems.filter {
-                it.name.contains(query, ignoreCase = true)
-            }
+            pantryItems.filter { it.name.contains(query, ignoreCase = true) }
         }
         notifyDataSetChanged()
     }
 
     private fun savePantryItems() {
         // Implement saving updated quantities to SharedPreferences if needed
+        // Example: Use SharedPreferences to save the state of the pantry items
     }
 }
+

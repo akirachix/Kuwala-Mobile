@@ -52,7 +52,7 @@ class Profile : AppCompatActivity() {
         profileImageView = findViewById(R.id.profileImageView)
         nameTextView = findViewById(R.id.nameTextView)
         nameEditText = findViewById(R.id.nameEditText)
-        usernameEditText = findViewById(R.id.usernameEditText)
+//        usernameEditText = findViewById(R.id.usernameEditText)
         pantryUpdateRadioGroup = findViewById(R.id.pantryUpdateRadioGroup)
         reminderSwitch = findViewById(R.id.reminderSwitch)
         saveProfileButton = findViewById(R.id.saveProfileButton)

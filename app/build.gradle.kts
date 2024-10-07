@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("kotlin-kapt")
-    id ("kotlin-parcelize")// Add the kapt plugin for Kotlin
+// Add the kapt plugin for Kotlin
 }
 
 android {
@@ -69,7 +69,10 @@ dependencies {
 
     // Navigation components
     implementation(libs.androidx.navigation.fragment.ktx)  // Navigation Fragment KTX
-    implementation(libs.androidx.navigation.ui.ktx)  // Navigation UI KTX
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.filament.android)
+    implementation(libs.mediation.test.suite)
+    implementation(libs.androidx.foundation.layout.android)  // Navigation UI KTX
 
     // Testing dependencies
     testImplementation(libs.junit)  // Unit tests
@@ -97,6 +100,17 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation( "com.google.code.gson:gson:2.8.9")
     implementation ("androidx.multidex:multidex:2.0.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.google.code.gson:gson:2.9.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("com.google.android.material:material:1.9.0")
+
 
 }
+
+
+
 
