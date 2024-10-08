@@ -99,7 +99,7 @@ class GrainsAdapter(
         val checkBox: CheckBox = view.findViewById(R.id.customCheckBox)
         val foodName: TextView = view.findViewById(R.id.etFoodName)
         val quantity: TextView = view.findViewById(R.id.etQuantity)
-        val plusButton: ImageView = view.findViewById(R.id.imageView10)
+        val plusButton: ImageView = view.findViewById(R.id.btnpantrytoprofile)
         val minusButton: ImageView = view.findViewById(R.id.imageView16)
     }
 

@@ -23,7 +23,7 @@
         android:textSize="18dp" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/btnpantrytoprofile"
         android:layout_width="29dp"
         android:layout_height="22dp"
         android:layout_marginLeft="230dp"

@@ -1,8 +1,10 @@
 package com.akirachix.dishhub
 
-import HomeFragment
+//import HomeFragment
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
 
@@ -13,6 +15,8 @@ class Categories : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -46,4 +50,10 @@ class Categories : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fcvHome, fragment).commit()
     }
+
 }
+
+
+
+
+

@@ -1,5 +1,5 @@
 package com.akirachix.dishhub.api
-//import com.akirachix.dishhub.Recipes
+
 import com.akirachix.dishhub.model.RegisterRequest
 import com.akirachix.dishhub.model.RegisterResponse
 import com.akirachix.dishhub.models.UserProfileResponse
@@ -17,76 +17,21 @@ interface ApiService {
     @POST("api/users/register/")
     fun registerUser(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
 
-
     @GET("api/user/profile/{id}/")
     fun getUserProfile(@Path("id") userId: Int): Call<UserProfileResponse>
-
 
     @PATCH("api/user/profile/update/")
     fun updateUserProfile(@Body userProfile: UserProfileUpdate): Call<Void>
 
-
     @GET("recipes/findByIngredients")
     fun getRecipesByIngredients(
         @Query("ingredients") ingredients: String,
-        @Query("apiKey") apiKey: String
+        @Query("apiKey") apiKey: String = "07d5c6ca83604b57aef6a720e80f378b"
     ): Call<List<RecipesResponse>>
 
     @GET("recipes/{id}/information")
     fun getRecipeInformation(
         @Path("id") id: Int,
-        @Query("apiKey") apiKey: String = "5efbfde4081c4ff59fe9b3183c9ebe91"
+        @Query("apiKey") apiKey: String = "07d5c6ca83604b57aef6a720e80f378b"
     ): Call<RecipeInformation>
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @GET("api/recipes/?q=ingredient1&q=ingredient2&q=ingredient3")
-//    fun getRecipes(@Query("q") ingredients: List<String>): Call<RecipesResponse>
