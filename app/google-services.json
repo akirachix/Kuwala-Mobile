@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "531043947887",
+    "project_id": "dishhub-6750a",
+    "storage_bucket": "dishhub-6750a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531043947887:android:69e2e43f4e8f681c07849a",
+        "android_client_info": {
+          "package_name": "com.akirachix.dishhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531043947887-lbekqobmcqg1ea8q27a5vjg0halq2kqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akirachix.dishhub",
+            "certificate_hash": "16c8f64ffa34423609843d9d079fc278dc1b0465"
+          }
+        },
+        {
+          "client_id": "531043947887-a8464qk1hgjbu5liunnvgju6odlm8nnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFCab_gjRahXmVH-KpipR8tNadCzi5ap8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531043947887-a8464qk1hgjbu5liunnvgju6odlm8nnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

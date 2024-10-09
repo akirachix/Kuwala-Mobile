@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/home"
+        android:iconTint="@color/Orange"
+        />
+    <item android:title="Pantry"
+        android:icon="@drawable/store"
+        android:id="@+id/pantry"/>
+
+    <item android:id="@+id/shop"
+        android:icon="@drawable/bag"
+        android:title="Shop"/>
+</menu>

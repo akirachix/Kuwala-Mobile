@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recipeCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeColor="#DDDDDD"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Recipe Title Section -->
+        <LinearLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/recipeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/expandIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_expand_more"
+                android:tint="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- Expandable Content -->
+        <LinearLayout
+            android:id="@+id/expandableContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Ingredients Section -->
+            <TextView
+                android:id="@+id/recipeIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="#555555"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"/>
+
+            <!-- Instructions Section -->
+            <TextView
+                android:id="@+id/recipeInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="#555555"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Tap to expand hint -->
+        <TextView
+            android:id="@+id/tapToExpandHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Tap to view details"
+            android:textColor="#888888"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
