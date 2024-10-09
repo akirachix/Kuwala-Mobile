@@ -9,7 +9,7 @@ Table of Contents
     Technologies Used
    
 
-**Features**
+**Features of the app**
 
     Recipe Generator: Generates recipes based on the ingredients available in the user's pantry.
     Shopping List: Users can create and manage a shopping list for items they do not have in their pantry.
