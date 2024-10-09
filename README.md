@@ -1,4 +1,4 @@
-DishHub
+**DishHub**
 
 DishHub is an Android app that helps users generate recipes based on the ingredients they have in their pantry. It also includes a shopping list feature for users to add items they need to purchase.
 Table of Contents
@@ -9,7 +9,7 @@ Table of Contents
     Technologies Used
    
 
-Features
+**Features**
 
     Recipe Generator: Generates recipes based on the ingredients available in the user's pantry.
     Shopping List: Users can create and manage a shopping list for items they do not have in their pantry.
@@ -19,13 +19,13 @@ Features
     Search Functionality: Search for food items in the pantry or shopping list.
     Offline Support: Pantry and shopping list data persists between sessions, even offline.
 
-Installation
+**Installation**
 
     Clone the repository:
 
     bash
 
-    git clone https://github.com/yourusername/dishhub.git
+    git clone https://github.com/akirachix/dishhub.git
 
     Open the project in Android Studio.
 
@@ -33,7 +33,7 @@ Installation
 
     Run the app on an Android emulator or physical device.
 
-Usage
+**Usage**
 
     Login/Signup: Start by signing up or logging in to access your profile.
     Add Ingredients to Pantry: Add ingredients you have to your pantry using the pantry management feature.
@@ -41,7 +41,7 @@ Usage
     Shopping List: Add items to the shopping list that you don't have in your pantry.
     View Recipes: View details of each recipe by clicking on the recipe card.
 
-Technologies Used
+**Technologies Used**
 
     Android Studio: Development environment for building Android applications.
     Kotlin: Primary programming language used in the app.
