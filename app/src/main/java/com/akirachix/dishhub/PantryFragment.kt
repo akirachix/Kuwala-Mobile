@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 package com.akirachix.dishhub
 
 import PantryAdapter
@@ -19,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akirachix.dishhub.api.RecipeInformation
@@ -28,14 +22,13 @@ import com.akirachix.dishhub.databinding.FragmentPantryBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.collections.List
-
-
-
 
 class PantryFragment : Fragment() {
     private lateinit var binding: FragmentPantryBinding
     private val selectedIngredients: MutableList<String> = mutableListOf()
+    private lateinit var pantryAdapter: PantryAdapter
+
+    private val ADD_ITEM_REQUEST_CODE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,53 +44,81 @@ class PantryFragment : Fragment() {
         loadPantryItems()
 
         binding.btnYumAhead.setOnClickListener {
+            if (selectedIngredients.isEmpty()) {
+                Toast.makeText(requireContext(), "Please select at least one ingredient", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             retrieveRecipes(selectedIngredients)
+        }
+
+        binding.root.setOnClickListener {
+            val intent = Intent(requireContext(), AddItemManually::class.java)
+            startActivityForResult(intent, ADD_ITEM_REQUEST_CODE)
         }
     }
 
+
     private fun loadPantryItems() {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("PantryPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences = requireActivity().getSharedPreferences("PantryPreferences", Context.MODE_PRIVATE)
         val pantryItemsString = sharedPreferences.getString("PantryItems", "")
 
         pantryItemsString?.let {
             if (it.isNotEmpty()) {
                 val itemsArray = it.split("|")
+                PantryRepository.pantryItems.clear()
                 for (item in itemsArray) {
                     val parts = item.split(",")
-                    if (parts.size == 3) {
+                    if (parts.size >= 3) {
                         val foodName = parts[0]
                         try {
-                            val quantity = parts[1] // Ensure this is a valid integer
-                            PantryRepository.pantryItems.add(PantryItems(0, foodName, 1))
+                            val quantity = parts[2].toInt() // Ensure you're getting the quantity
+                            PantryRepository.pantryItems.add(PantryItems(foodName, quantity))
                         } catch (e: NumberFormatException) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Invalid quantity for food item: $foodName",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Log.e("PantryFragment", "Error parsing quantity for $foodName", e)
                         }
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Invalid pantry item format: $item",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
-                (binding.rvpantry.adapter as? PantryAdapter)?.notifyDataSetChanged()
+                pantryAdapter.notifyDataSetChanged()
             }
         }
     }
 
     private fun setupRecyclerView() {
         binding.rvpantry.layoutManager = LinearLayoutManager(requireContext())
-        val pantryAdapter = PantryAdapter(PantryRepository.pantryItems, selectedIngredients)
+        pantryAdapter = PantryAdapter(PantryRepository.pantryItems, selectedIngredients)
         binding.rvpantry.adapter = pantryAdapter
     }
 
+    private fun updatePantryWithNewItem(item: String) {
+        val parts = item.split(",")
+        if (parts.size >= 3) {
+            val foodName = parts[0]
+            val quantity = parts[2].toInt()
+            PantryRepository.pantryItems.add(PantryItems(foodName, quantity))
+            pantryAdapter.notifyItemInserted(PantryRepository.pantryItems.size - 1)
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_ITEM_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            data?.getStringExtra("newItem")?.let {
+                updatePantryWithNewItem(it)
+            }
+        }
+    }
 
+    private fun cleanHtmlTags(text: String): String {
+        return text
+            .replace(Regex("<[^>]*>"), "") // Remove HTML tags
+            .replace(" ", " ")
+            .replace("&", "&")
+            .replace("<", "<")
+            .replace(">", ">")
+            .replace("\n", " ") // Replace newlines with spaces
+            .replace(Regex("\\s+"), " ")
+            .trim()
+    }
 
     private fun retrieveRecipes(ingredients: List<String>) {
         val loadingDialog = AlertDialog.Builder(requireContext())
@@ -109,8 +130,7 @@ class PantryFragment : Fragment() {
         val ingredientsQuery = ingredients.joinToString(",")
         val apiService = RetrofitClientSpoonacular.instance
 
-        apiService.getRecipesByIngredients(ingredientsQuery ,  "b2312a182166424a8e94029529542401")
-
+        apiService.getRecipesByIngredients(ingredientsQuery, "07d5c6ca83604b57aef6a720e80f378b")
             .enqueue(object : Callback<List<RecipesResponse>> {
                 override fun onResponse(
                     call: Call<List<RecipesResponse>>,
@@ -130,19 +150,12 @@ class PantryFragment : Fragment() {
                             return
                         }
 
-                        // Fetch detailed information for each recipe
                         val recipeDetails = mutableListOf<RecipeDetailsDisplay>()
                         var completedRequests = 0
 
                         recipes.forEach { recipe ->
                             apiService.getRecipeInformation(recipe.id)
                                 .enqueue(object : Callback<RecipeInformation> {
-                                    private val missedIngredients: Any
-                                        get() {
-                                            TODO()
-                                        }
-
-
                                     override fun onResponse(
                                         call: Call<RecipeInformation>,
                                         detailResponse: Response<RecipeInformation>
@@ -152,21 +165,18 @@ class PantryFragment : Fragment() {
                                         if (detailResponse.isSuccessful) {
                                             val recipeInfo = detailResponse.body()
                                             recipeInfo?.let {
-                                                // Get the names of both used and missed ingredients
                                                 val allIngredients = recipe.usedIngredients.map { it.name } +
-                                                        recipe.missedIngredients.map { it.name }  // Use missedIngredients properly
+                                                        recipe.missedIngredients.map { it.name }
 
                                                 val recipeDetail = RecipeDetailsDisplay(
-                                                    recipe.title,
-                                                    allIngredients.joinToString(", "),  // Join all ingredient names into a single string
-                                                    it.instructions ?: "No instructions available"
+                                                    cleanHtmlTags(recipe.title),
+                                                    cleanHtmlTags(allIngredients.joinToString(", ")),
+                                                    cleanHtmlTags(it.instructions ?: "No instructions available")
                                                 )
                                                 recipeDetails.add(recipeDetail)
                                             }
                                         }
 
-
-                                        // Check if all requests are completed
                                         if (completedRequests == recipes.size) {
                                             loadingDialog.dismiss()
                                             if (recipeDetails.isNotEmpty()) {
@@ -190,11 +200,7 @@ class PantryFragment : Fragment() {
                                         }
                                     }
 
-                                    override fun onFailure(
-                                        call: Call<RecipeInformation
-                                                >,
-                                        t: Throwable
-                                    ) {
+                                    override fun onFailure(call: Call<RecipeInformation>, t: Throwable) {
                                         completedRequests++
                                         if (completedRequests == recipes.size) {
                                             loadingDialog.dismiss()
@@ -219,17 +225,14 @@ class PantryFragment : Fragment() {
 
                 override fun onFailure(call: Call<List<RecipesResponse>>, t: Throwable) {
                     loadingDialog.dismiss()
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Error: ${t.message}",
+                        Toast.LENGTH_SHORT).show()
                 }
             })
     }
 }
 
 
-private fun Any.enqueue(callback: Callback<RecipeInformation>) {
-
-}
 
 
 

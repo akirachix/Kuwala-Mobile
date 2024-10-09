@@ -1,13 +1,12 @@
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+package com.akirachix.dishhub
 
-
-
-
-@Parcelize
-data class Recipes(
+data class Recipe<Ingredient>(
+    val id: Int,
     val title: String,
-    val ingredients: String,
-    val instructions: String
-) : Parcelable
+    val image: String,  // Image URL of the recipe
+    val readyInMinutes: Int,  // Time to make the recipe
+    val servings: Int,  // Number of servings
+    val ingredients: List<Ingredient>,  // List of ingredients needed for the recipe
+    val instructions: String  // Full recipe instructions
+)
 

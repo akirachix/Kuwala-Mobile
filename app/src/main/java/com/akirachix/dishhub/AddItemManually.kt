@@ -1,6 +1,7 @@
 
 package com.akirachix.dishhub
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,23 +42,26 @@ class AddItemManually : AppCompatActivity() {
     }
 
     private fun saveItem() {
-        val foodName = binding.etFoodName.editText?.text.toString().trim() // Get food name
+        val foodName = binding.etFoodName.editText?.text.toString().trim()
 
         if (foodName.isNotEmpty()) {
-            // Save the item in SharedPreferences
+
             val sharedPreferences = getSharedPreferences("PantryPreferences", MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
-            // Create a food item string in the format of foodName,pantry,quantity
-            val foodItem = "$foodName,pantry,$quantity" // All items will now save as "pantry" category
+            val foodItem = "$foodName,pantry,$quantity"
 
-            // Append the food item to the pantry items
             val pantryItems = sharedPreferences.getString("PantryItems", "") ?: ""
             editor.putString("PantryItems", if (pantryItems.isNotEmpty()) "$pantryItems|$foodItem" else foodItem)
 
-            editor.apply() // Apply changes to SharedPreferences
+            editor.apply()
 
             toast("Food item saved: $foodName, Quantity: $quantity")
+
+            val resultIntent = Intent().apply {
+                putExtra("newItem", foodItem)
+            }
+            setResult(RESULT_OK, resultIntent)
             finish() // Close the activity
         } else {
             toast("Please enter food name.")
@@ -68,6 +72,3 @@ class AddItemManually : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
-
-
-

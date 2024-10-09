@@ -13,52 +13,38 @@
         tools:context=".PantryFragment">
 
         <!-- Pantry Title -->
+
+        <!-- Profile and Notification Icons -->
+
+        <!-- Search View -->
+
+        <!-- RecyclerView for Pantry Items -->
+
         <TextView
             android:id="@+id/tvPantry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="60dp"
             android:text="Pantry"
             android:textColor="#883418"
             android:textSize="34sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Profile and Notification Icons -->
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/notification" />
-
-        <!-- Search View -->
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="396dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/search_view_border"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPantry" />
 
-        <!-- RecyclerView for Pantry Items -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvpantry"
             android:layout_width="0dp"

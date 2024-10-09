@@ -11,6 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
         <TextView
             android:id="@+id/tvSignup"
             android:layout_width="wrap_content"
@@ -23,11 +25,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintHorizontal_bias="0.441"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilfirstname"
@@ -107,11 +108,11 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etmail"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:inputType="number"
+                android:inputType="textWebEmailAddress"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textSize="20dp" />
 
 
@@ -171,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirm password"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,24 +181,22 @@
             android:id="@+id/txtlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:text="Already have an account? Login"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.598"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/google" />
-
 
         <Button
             android:id="@+id/btnlogin"
             android:layout_width="106dp"
             android:layout_height="53dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="60dp"
             android:backgroundTint="#883418"
             android:text="Sign up"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilpass" />
 
@@ -215,14 +214,14 @@
 
         <Button
             android:id="@+id/google"
-            android:layout_width="237dp"
-            android:layout_height="61dp"
+            android:layout_width="291dp"
+            android:layout_height="58dp"
             android:layout_marginTop="4dp"
             android:backgroundTint="#FFFFFF"
             android:text="Continue with Google"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.683"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/or"
             app:strokeColor="#F8A11B"
@@ -237,10 +236,10 @@
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/txtlogin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.446"
+            app:layout_constraintHorizontal_bias="0.334"
             app:layout_constraintStart_toEndOf="@+id/google"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.953"
             app:srcCompat="@drawable/gol" />
 
 

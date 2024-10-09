@@ -94,18 +94,61 @@
 
 
 
+//
+//package com.akirachix.dishhub
+//
+//import RecipeDetailsDisplay
+//import android.os.Bundle
+//import androidx.appcompat.app.AppCompatActivity
+//import androidx.recyclerview.widget.LinearLayoutManager
+//import androidx.recyclerview.widget.RecyclerView
+//import com.akirachix.dishhub.databinding.ActivityRecipeDisplayBinding
+//
+//
+//
+//
+//
+//class RecipeDisplay : AppCompatActivity() {
+//    private lateinit var binding: ActivityRecipeDisplayBinding
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = ActivityRecipeDisplayBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        // Get the list of recipes passed from PantryFragment
+//        val recipesList = intent.getParcelableArrayListExtra<RecipeDetailsDisplay>("RECIPES_LIST")
+//
+//        setupRecyclerView(recipesList ?: emptyList())
+//    }
+//
+//    private fun setupRecyclerView(recipesList: List<RecipeDetailsDisplay>) {
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        val recipeAdapter = RecipeAdapter(recipesList)
+//        binding.recyclerView.adapter = recipeAdapter
+//    }
+//}
+
+
+
+
+
+
+
+
+
 
 package com.akirachix.dishhub
 
+import RecipeAdapter
 import RecipeDetailsDisplay
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.akirachix.dishhub.databinding.ActivityRecipeDisplayBinding
-
-
-
 
 
 class RecipeDisplay : AppCompatActivity() {
@@ -116,36 +159,22 @@ class RecipeDisplay : AppCompatActivity() {
         binding = ActivityRecipeDisplayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get the list of recipes passed from PantryFragment
-        val recipesList = intent.getParcelableArrayListExtra<RecipeDetailsDisplay>("RECIPES_LIST")
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Recipe Suggestions"
 
-        setupRecyclerView(recipesList ?: emptyList())
+        val recipes = intent.getParcelableArrayListExtra<RecipeDetailsDisplay>("RECIPES_LIST")
+        recipes?.let {
+            binding.recipesRecyclerView.apply {
+                layoutManager = LinearLayoutManager(this@RecipeDisplay)
+                adapter = RecipeAdapter(it)
+            }
+        }
     }
 
-    private fun setupRecyclerView(recipesList: List<RecipeDetailsDisplay>) {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        val recipeAdapter = RecipeAdapter(recipesList)
-        binding.recyclerView.adapter = recipeAdapter
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
-//
-//class RecipeDisplay : AppCompatActivity() {
-//    private lateinit var binding: ActivityRecipeDisplayBinding
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        binding = ActivityRecipeDisplayBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        // Safely get the recipes from the Intent
-//        val recipes: ArrayList<RecipeDetailsDisplay> = intent.getParcelableArrayListExtra("RECIPES_LIST") ?: ArrayList()
-//
-//        // Initialize the adapter with a non-nullable ArrayList of RecipeDetailsDisplay
-//        val recipeAdapter = RecipeAdapter(recipes)
-//
-//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.recyclerView.adapter = recipeAdapter
-//    }
-//}
-
 

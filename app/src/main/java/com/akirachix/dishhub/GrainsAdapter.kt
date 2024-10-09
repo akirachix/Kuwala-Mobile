@@ -85,6 +85,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+private val Nothing?.name: String
+    get() {
+        TODO("Not yet implemented")
+    }
+
 class GrainsAdapter(
     private var items: List<Grains>,
     private val itemClick: (Grains) -> Unit
@@ -94,7 +99,7 @@ class GrainsAdapter(
         val checkBox: CheckBox = view.findViewById(R.id.customCheckBox)
         val foodName: TextView = view.findViewById(R.id.etFoodName)
         val quantity: TextView = view.findViewById(R.id.etQuantity)
-        val plusButton: ImageView = view.findViewById(R.id.imageView10)
+        val plusButton: ImageView = view.findViewById(R.id.btnpantrytoprofile)
         val minusButton: ImageView = view.findViewById(R.id.imageView16)
     }
 
@@ -139,6 +144,20 @@ class GrainsAdapter(
     // This method returns a list of selected items as PantryItems objects without category
     fun getSelectedItems(): List<PantryItems> {
         return items.filter { it.isSelected }
-            .map { PantryItems(0, it.name, it.quantity) } // Create PantryItems without category
+            .map {
+                val foodName = null
+                val vegetable = null
+                PantryItems(0, it.name, it.quantity, vegetable.name, foodName.toString())
+            } // Create PantryItems without category
+    }
+
+    private fun PantryItems(
+        id: Int,
+        name: String,
+        quantity: Int,
+        category: String,
+        toString: String
+    ): PantryItems {
+        TODO("Not yet implemented")
     }
 }

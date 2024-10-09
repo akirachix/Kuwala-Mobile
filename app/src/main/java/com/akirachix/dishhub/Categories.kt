@@ -1,8 +1,10 @@
 package com.akirachix.dishhub
 
-import HomeFragment
+//import HomeFragment
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
 
@@ -14,23 +16,25 @@ class Categories : AppCompatActivity() {
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     loadFragment(HomeFragment())
                     true
                 }
-                R.id.recipe -> {
-                    loadFragment(RecipesFragment())
-                    true
-                }
+//                R.id.recipe -> {
+//                    loadFragment(RecipesFragment())
+//                    true
+//                }
                 R.id.pantry -> {
                     // Assuming PantryFragment does not require parameters, instantiate it directly
                     loadFragment(PantryFragment())
                     true
                 }
                 R.id.shop -> {
-                    loadFragment(ShopFragment()) // Ensure this fragment is defined
+                    loadFragment(ShopFragment())
                     true
                 }
                 else -> true
@@ -46,4 +50,10 @@ class Categories : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fcvHome, fragment).commit()
     }
+
 }
+
+
+
+
+
