@@ -78,6 +78,7 @@ package com.akirachix.dishhub
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -108,13 +109,8 @@ class HomeFragment : Fragment() {
         // Make sure to import your Profile activity correctly
         val profileImageView = binding.btnprofile
         profileImageView.setOnClickListener {
-            // Conditional check for activity context
-            activity?.let {
-                val intent = Intent(it, Profile::class.java)
-                startActivity(intent)
-            }
+            startActivity(Intent(requireContext(), com.akirachix.dishhub.Profile::class.java))
         }
-
         val addButton = binding.buttonAddItem
         addButton.setOnClickListener {
             activity?.let {

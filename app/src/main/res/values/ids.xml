@@ -9,4 +9,5 @@
     <item name="category" type="id" />
     <item name="positive" type="id" />
     <item name="checkbox" type="id" />
+    <item name="usernameEditText" type="id" />
 </resources>

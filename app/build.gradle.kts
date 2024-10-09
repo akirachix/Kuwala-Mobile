@@ -72,7 +72,9 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.filament.android)
     implementation(libs.mediation.test.suite)
-    implementation(libs.androidx.foundation.layout.android)  // Navigation UI KTX
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.storage.ktx)  // Navigation UI KTX
 
     // Testing dependencies
     testImplementation(libs.junit)  // Unit tests

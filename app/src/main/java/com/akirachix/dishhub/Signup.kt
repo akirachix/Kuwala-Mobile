@@ -270,6 +270,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.akirachix.dishhub.R.id.google
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.common.api.ApiException
@@ -488,7 +489,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         // Handle Google sign-in button click
-        val googleSignInButton: Button = findViewById(R.id.google)
+        val googleSignInButton: Button = findViewById(google)
         googleSignInButton.setOnClickListener {
             signIn()
         }

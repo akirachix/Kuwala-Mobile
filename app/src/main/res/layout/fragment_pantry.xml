@@ -13,43 +13,35 @@
         tools:context=".PantryFragment">
 
         <!-- Pantry Title -->
-        <TextView
-            android:id="@+id/tvPantry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Pantry"
-            android:textColor="#883418"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Profile and Notification Icons -->
 
         <!-- Search View -->
 
-        <ImageView
-            android:id="@+id/btnpantrytoprofile"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.938"
-            app:layout_constraintStart_toEndOf="@+id/tvPantry"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
-
         <!-- RecyclerView for Pantry Items -->
+
+        <TextView
+            android:id="@+id/tvPantry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Pantry"
+            android:textColor="#883418"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="369dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="396dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/search_view_border"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPantry" />
 
