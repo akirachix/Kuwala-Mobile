@@ -1,0 +1,44 @@
+<resources>
+    <string name="title_activity_bottom_nav_menu">bottom_nav_menu</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="app_name">DishHub</string>
+    <string name="firebase_app_id">1:531043947887:android:69e2e43f4e8f681c07849a</string>
+    <string name="default_channel_id">your_default_channel_id</string>
+    <string name="project_number">531043947887</string>
+
+
+    <string name="hello_blank_fragment">Welcome to DishHub!</string>
+
+    <string name="beef">Beef Dishes</string>
+    <string name="sausages">Sausage Options</string>
+    <string name="pilau">Pilau</string>
+
+    <string name="beef_samosa">Beef Samosa</string>
+    <string name="sausage">Sausages</string>
+    <string name="chips">Chips</string>
+    <string name="beans">Beans</string>
+    <string name="meat">Beef</string>
+
+    <string name="recipes">Recipes</string>
+    <string name="server_client_id">1</string>
+
+    <style name="Base.Theme.DishHub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Define your base theme attributes here -->
+    </style>
+
+
+    <string-array name="food_categories">
+        <item>Dairy</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Grains</item>
+    </string-array>
+
+</resources>
+
