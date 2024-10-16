@@ -1,6 +1,3 @@
-import com.akirachix.dishhub.R
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +5,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.akirachix.dishhub.R
 
 class VegetablesAdapter(
     private var items: List<Vegetables>,
@@ -38,20 +36,25 @@ class VegetablesAdapter(
 
         // Update item state when checkbox is clicked
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            item.isSelected = isChecked
-            itemClick(item) // Notify the activity or fragment
+            // Use post to notify on the UI thread after layout calculations are done
+            holder.checkBox.post {
+                item.isSelected = isChecked
+                itemClick(item) // Notify the activity or fragment
+            }
         }
 
         // Handle increment and decrement of quantity
         holder.plusButton.setOnClickListener {
             item.quantity++
             holder.quantity.text = item.quantity.toString()
+            // Optionally update the UI here if you need to reflect changes outside of this view
         }
 
         holder.minusButton.setOnClickListener {
             if (item.quantity > 0) {
                 item.quantity--
                 holder.quantity.text = item.quantity.toString()
+                // Optionally update the UI here if you need to reflect changes outside of this view
             }
         }
 
@@ -63,8 +66,8 @@ class VegetablesAdapter(
 
     fun updateItems(newItems: List<Vegetables>) {
         items = newItems
+        // Use post to notify after layout calculation
+        // Consider notifying for specific updates instead of the entire dataset
         notifyDataSetChanged()
     }
 }
-
-
