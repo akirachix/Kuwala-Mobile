@@ -7,6 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".Categories">
 
+    <!-- Logout Button placed at the top -->
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="89dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#883418"
+        android:text="Logout"
+        android:textColor="#F8A11B"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcvHome"
         android:layout_width="match_parent"
@@ -14,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnLogout" /> <!-- Ensure that the fragment stays below the button -->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -1,5 +1,6 @@
 package com.akirachix.dishhub.api
 
+import RecipesResponse
 import com.akirachix.dishhub.model.RegisterRequest
 import com.akirachix.dishhub.model.RegisterResponse
 import com.akirachix.dishhub.models.UserProfileResponse
@@ -23,15 +24,22 @@ interface ApiService {
     @PATCH("api/user/profile/update/")
     fun updateUserProfile(@Body userProfile: UserProfileUpdate): Call<Void>
 
-    @GET("recipes/findByIngredients")
-    fun getRecipesByIngredients(
-        @Query("ingredients") ingredients: String,
-        @Query("apiKey") apiKey: String = "07d5c6ca83604b57aef6a720e80f378b"
-    ): Call<List<RecipesResponse>>
 
-    @GET("recipes/{id}/information")
-    fun getRecipeInformation(
-        @Path("id") id: Int,
-        @Query("apiKey") apiKey: String = "07d5c6ca83604b57aef6a720e80f378b"
-    ): Call<RecipeInformation>
-}
+
+//
+    @GET("search")
+    fun getRecipesByIngredients(
+        @Query("q") ingredients: String,
+        @Query("app_id") appId: String,
+        @Query("app_key") appKey: String
+    ): Call<EdamamApiResponse>
+    }
+
+//    interface YummyApiService {
+//        @GET("recipes/findByIngredients")
+//        fun getRecipesByIngredients(@Query("ingredients") ingredientsQuery: String): Call<RecipesResponse>
+//    }
+
+
+
+

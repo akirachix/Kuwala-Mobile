@@ -63,8 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:backgroundTint="#883418"
-            android:text="Get Recipe"
             android:textColor="#F8A11B"
+            android:text="Get Recipe"
+
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
