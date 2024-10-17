@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 package com.akirachix.dishhub
 
 import android.annotation.SuppressLint
@@ -12,15 +19,7 @@ import com.akirachix.dishhub.databinding.ActivityGrainsCategoryBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-// You may want to keep Constants in a separate file for better organization
-object Constants {
-    const val BASE_URL = "https://example.com/api/"  // Replace with your actual base URL
-}
-
-@Suppress("DEPRECATION")
 class GrainsCategory : AppCompatActivity() {
 
     private lateinit var binding: ActivityGrainsCategoryBinding
@@ -38,7 +37,7 @@ class GrainsCategory : AppCompatActivity() {
         setupSearchView()
         setupBackButton()
         fetchFoodItems()
-        setupSaveButton() // New method to set up button behavior
+        setupSaveButton()
     }
 
     private fun setupRecyclerView() {
@@ -64,17 +63,13 @@ class GrainsCategory : AppCompatActivity() {
     }
 
     private fun fetchFoodItems() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(GrainsApiService::class.java)
-        service.getFoodItems().enqueue(object : Callback<List<Grains>> {
+        GrainsRetrofitInstance.api.getFoodItems().enqueue(object : Callback<List<Grains>> {
             override fun onResponse(call: Call<List<Grains>>, response: Response<List<Grains>>) {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()
                     adapter.updateItems(foodItems)
+                } else {
+                    Toast.makeText(this@GrainsCategory, "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -95,12 +90,11 @@ class GrainsCategory : AppCompatActivity() {
     }
 
     private fun setupSaveButton() {
-        binding.button.setOnClickListener { // Connect to your new Save button
+        binding.button.setOnClickListener {
             val selectedItems = adapter.getSelectedItems()
             if (selectedItems.isNotEmpty()) {
-                // Save selected items or show a success message
                 Toast.makeText(this, "Saved ${selectedItems.size} items to pantry", Toast.LENGTH_SHORT).show()
-                // TODO: Implement the actual saving to a database or shared preferences
+                // TODO: Implement saving mechanism (e.g., database or shared preferences)
             } else {
                 Toast.makeText(this, "No items selected to save", Toast.LENGTH_SHORT).show()
             }

@@ -1,3 +1,7 @@
+
+
+
+
 package com.akirachix.dishhub
 
 import android.content.Context
@@ -36,8 +40,4 @@ class SessionManager(context: Context) {
         editor.clear()
         editor.apply()
     }
-
-
-
-
 }

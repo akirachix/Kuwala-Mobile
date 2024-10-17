@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("kotlin-kapt")
+    id ("kotlin-parcelize")
 // Add the kapt plugin for Kotlin
 }
 
@@ -115,7 +116,3 @@ dependencies {
 
 
 }
-
-
-
-
