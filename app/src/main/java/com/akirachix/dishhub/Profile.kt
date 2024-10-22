@@ -1,9 +1,5 @@
 
 
-
-
-
-
 package com.akirachix.dishhub
 
 import android.Manifest

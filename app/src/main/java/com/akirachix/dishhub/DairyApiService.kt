@@ -77,4 +77,7 @@ interface ApiService {
 
     @GET("api/recipes")
     fun getRecipes(@Query("ingredients") ingredientsQuery: String): Call<List<RecipesResponse>>
+    fun getPantryItems(): Any {
+        TODO("Not yet implemented")
+    }
 }
