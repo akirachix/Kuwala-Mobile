@@ -20,24 +20,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item"
             app:layout_constraintVertical_bias="0.47" />
-
         <TextView
             android:id="@+id/item"
-            android:layout_width="81dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="36dp"
             android:text="item"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintEnd_toStartOf="@+id/imageView12"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toEndOf="@+id/checkbox"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="39dp"
-            android:layout_height="50dp"
+            android:layout_width="27dp"
+            android:layout_height="36dp"
             android:layout_marginEnd="36dp"
             app:layout_constraintBottom_toBottomOf="@+id/item"
             app:layout_constraintEnd_toStartOf="@+id/negative"
@@ -57,8 +57,8 @@
 
         <ImageView
             android:id="@+id/negative"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="29dp"
+            android:layout_height="28dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"

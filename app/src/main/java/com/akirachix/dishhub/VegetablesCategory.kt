@@ -269,7 +269,7 @@ class VegetablesCategory : AppCompatActivity() {
     private fun saveSelectedItems(it: Any) {
         selectedItems.forEach { vegetable ->
             val pantryItem = PantryItems(
-                name = vegetable.name,
+                item = vegetable.name,
                 quantity = vegetable.quantity.toString(),
                 quantity1 = it.quantity,
                 s = "",
@@ -277,7 +277,7 @@ class VegetablesCategory : AppCompatActivity() {
             )
             PantryRepository.addPantryItem(pantryItem) // Method to add item to pantry
 
-            Toast.makeText(this, "${pantryItem.name} saved to pantry", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${pantryItem.item} saved to pantry", Toast.LENGTH_SHORT).show()
         }
 
         selectedItems.clear()

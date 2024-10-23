@@ -1,7 +1,7 @@
 package com.akirachix.dishhub
 
 data class PantryItems(
-    val name: String,
+    val item: String,
     var quantity: String,
     val quantity1: Int,
     val s: String,
