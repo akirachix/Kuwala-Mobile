@@ -1,12 +1,10 @@
 
 
 
-
-
-
-
 package com.akirachix.dishhub
+
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -14,14 +12,12 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-//import com.akirachix.DineHub.databinding.ActivityFruitsCategoryBinding
 import com.akirachix.dishhub.databinding.ActivityFruitsCategoryBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 @Suppress("DEPRECATION")
 class FruitsCategory : AppCompatActivity() {
@@ -111,7 +107,7 @@ class FruitsCategory : AppCompatActivity() {
             val editor = sharedPreferences.edit()
 
             val existingItems = sharedPreferences.getString("PantryItems", "") ?: ""
-            val newItems = selectedItems.joinToString("|") { "${it.name},fruit,${it.quantity}" }
+            val newItems = selectedItems.joinToString("|") { "${it.name},${it.quantity}" } // Save name and quantity
 
             // Save combined items
             editor.putString("PantryItems", if (existingItems.isNotEmpty()) "$existingItems|$newItems" else newItems)
@@ -119,8 +115,18 @@ class FruitsCategory : AppCompatActivity() {
 
             selectedItems.forEach { it.isSelected = false }  // Reset selection state
             adapter.updateItems(foodItems)  // Update the adapter to refresh the view
+
+            navigateAfterSave()  // Call to navigate to pantry after saving
         } else {
             Toast.makeText(this, "No items selected to save.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun navigateAfterSave() {
+        // Navigate to categories and optionally open the pantry
+        val intent = Intent(this, Categories::class.java)
+        intent.putExtra("showFragment", "pantry") // optionally open pantry
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,7 +1,12 @@
 
 
+
+
+
+
 package com.akirachix.dishhub
 
+import PantryAdapter
 import RecipeDetailsDisplay
 import android.content.Context
 import android.content.Intent
@@ -9,26 +14,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akirachix.dishhub.api.EdamamApiResponse
 import com.akirachix.dishhub.databinding.FragmentPantryBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.akirachix.dishhub.api.EdamamApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.reflect.Type
-import kotlin.collections.mutableListOf as mutableListOf1
 
 class PantryFragment : Fragment() {
+
     private lateinit var binding: FragmentPantryBinding
-    private val selectedIngredients: MutableList<String> = mutableListOf1()
+    private val selectedIngredients = mutableListOf<String>()
     private lateinit var pantryAdapter: PantryAdapter
-    private val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,77 +37,51 @@ class PantryFragment : Fragment() {
     ): View {
         binding = FragmentPantryBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        setupSearchView()
+        setupFetchRecipeButton()
+        loadPantryItems()
+
+        // Set up back arrow click listener
+        binding.backArrow.setOnClickListener {
+            requireActivity().onBackPressed()  // Handle back navigation
+        }
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        fetchPantryItems()
+    private fun setupRecyclerView() {
+        binding.rvpantry.layoutManager = LinearLayoutManager(requireContext())
+        pantryAdapter = PantryAdapter(mutableListOf(), selectedIngredients) {
+            savePantryItems()
+        }
+        binding.rvpantry.adapter = pantryAdapter
+    }
 
+    private fun savePantryItems() {
+        // TODO: Implement save pantry items logic.
+    }
+
+    private fun setupFetchRecipeButton() {
         binding.btnYumAhead.setOnClickListener {
             if (selectedIngredients.isEmpty()) {
                 Toast.makeText(requireContext(), "Please select at least one ingredient", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            saveSelectedVegetables()
             retrieveRecipes(selectedIngredients)
         }
     }
 
-    private fun setupRecyclerView() {
-        binding.rvpantry.layoutManager = LinearLayoutManager(requireContext())
-        pantryAdapter = PantryAdapter(requireContext(), mutableListOf1(), selectedIngredients) {
-            saveSelectedVegetables()
+    private fun loadPantryItems() {
+        val sharedPreferences = requireActivity().getSharedPreferences("PantryPreferences", Context.MODE_PRIVATE)
+        val pantryItemsString = sharedPreferences.getString("PantryItems", "") ?: ""
+        val pantryItems = pantryItemsString.split("|").mapNotNull {
+            val parts = it.split(",")
+            if (parts.size >= 2) {
+                val name = parts[0]
+                val quantity = parts[1].toIntOrNull() ?: 1
+                PantryItems(name, quantity.toString(), quantity.toString(), "", "")
+            } else null
         }
-        binding.rvpantry.adapter = pantryAdapter
-    }
-
-    private fun setupSearchView() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-            override fun onQueryTextChange(newText: String?): Boolean {
-                pantryAdapter.filter(newText ?: "")
-                return true
-            }
-        })
-    }
-
-    private fun fetchPantryItems() {
-        ApiClient.pantryApiService.getPantryItems().enqueue(object : Callback<List<PantryItems>> {
-            override fun onResponse(call: Call<List<PantryItems>>, response: Response<List<PantryItems>>) {
-                if (response.isSuccessful) {
-                    val pantryItems = response.body()
-                    pantryItems?.let {
-                        println("Debug: Fetched pantry items - ${it.map { item -> item.item}}")
-                        pantryAdapter.updateItems(it)
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Failed to fetch pantry items", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<List<PantryItems>>, t: Throwable) {
-                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun saveSelectedVegetables() {
-        val sharedPreferences = requireContext().getSharedPreferences("PantryPrefs", Context.MODE_PRIVATE)
-        val jsonSelectedIngredients = gson.toJson(selectedIngredients)
-        sharedPreferences.edit().putString("selected_ingredients", jsonSelectedIngredients).apply()
-    }
-
-    private fun loadSelectedVegetables() {
-        val sharedPreferences = requireContext().getSharedPreferences("PantryPrefs", Context.MODE_PRIVATE)
-        val jsonSelectedIngredients = sharedPreferences.getString("selected_ingredients", null)
-        if (jsonSelectedIngredients != null) {
-            val type = object : TypeToken<List<String>>() {}.type
-            val loadedSelectedIngredients: List<String> = gson.fromJson(jsonSelectedIngredients, type)
-            selectedIngredients.clear()
-            selectedIngredients.addAll(loadedSelectedIngredients)
-        }
+        pantryAdapter.updateItems(pantryItems)
     }
 
     private fun retrieveRecipes(ingredients: List<String>) {
@@ -154,21 +129,5 @@ class PantryFragment : Fragment() {
                 }
             })
     }
-}
-
-private fun Any.getString(s: String, nothing: Nothing?) {
-}
-
-private fun Any.fromJson(jsonSelectedIngredients: Any, type: Type?) {
 
 }
-
-
-
-
-
-
-
-
-
-
