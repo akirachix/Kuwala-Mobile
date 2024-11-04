@@ -1,10 +1,11 @@
 
 package com.akirachix.dishhub
 
-import DairyAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,13 +32,13 @@ class DairyCategory : AppCompatActivity() {
         setupRecyclerView()
         setupSearchView()
         setupBackButton()
-        fetchFoodItems()  // Fetch Dairy items
-        setupSaveButton()
+        fetchFoodItems()
+        setupSaveButton() // Set up the save button
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DairyAdapter(emptyList()) { item -> onFoodItemSelected(item) }
+        adapter = DairyAdapter(emptyList(), ::onFoodItemSelected, null)
         binding.recyclerView.adapter = adapter
     }
 
@@ -60,18 +61,21 @@ class DairyCategory : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.button.setOnClickListener {
             if (selectedItems.isNotEmpty()) {
-                saveSelectedItems()
+                saveSelectedItems() // Call the function to save selected items and navigate to pantry
             } else {
                 Toast.makeText(this, "No items selected", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Fetch food items from the Dairy category
     private fun fetchFoodItems() {
-        val retrofit = DairyRetrofitInstance.api
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://dishhub-2ea9d6ca8e11.herokuapp.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        retrofit.getDairyItems().enqueue(object : Callback<List<Dairy>> {
+        val service = retrofit.create(ApiService::class.java)
+        service.getDairyItems().enqueue(object : Callback<List<Dairy>> {
             override fun onResponse(call: Call<List<Dairy>>, response: Response<List<Dairy>>) {
                 if (response.isSuccessful) {
                     foodItems = response.body() ?: emptyList()
@@ -89,12 +93,8 @@ class DairyCategory : AppCompatActivity() {
 
     private fun filterItems(query: String) {
         val filteredList = foodItems.filter { it.name.contains(query, true) }
-        if (filteredList.isNotEmpty()) {
-            binding.recyclerView.visibility = View.VISIBLE
-            adapter.updateItems(filteredList)
-        } else {
-            binding.recyclerView.visibility = View.GONE
-        }
+        binding.recyclerView.visibility = if (filteredList.isNotEmpty()) View.VISIBLE else View.GONE
+        adapter.updateItems(filteredList)
     }
 
     private fun onFoodItemSelected(item: Dairy) {
@@ -107,27 +107,52 @@ class DairyCategory : AppCompatActivity() {
             item.isSelected = true
             Toast.makeText(this, "${item.name} selected", Toast.LENGTH_SHORT).show()
         }
+
+        val currentList: Any? = adapter.currentList
+        val index = currentList.indexOf(item)
+        if (index >= 0) {
+            adapter.notifyItemChanged(index)
+        } else {
+            Log.e("DairyCategory", "The selected item was not found in the current list!")
+        }
     }
 
     private fun saveSelectedItems() {
-        selectedItems.forEach { dairy ->
-            val pantryItem = PantryItems(
-                item = dairy.name,
-                quantity = dairy.quantity.toString(),
-                quantity1 = dairy.quantity,
-                s = "", // Adjust as necessary
-                s1 = "" // Adjust as necessary
-            )
-            PantryRepository.addPantryItem(pantryItem)
+        val sharedPreferences = getSharedPreferences("PantryPreferences", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val existingItems = sharedPreferences.getString("PantryItems", "") ?: ""
 
-            Toast.makeText(this, "${pantryItem.item} saved to pantry", Toast.LENGTH_SHORT).show()
+        selectedItems.forEach { dairy ->
+            val pantryItem = "${dairy.name},${dairy.quantity ?: "N/A"}"
+            val newItems = if (existingItems.isNotEmpty()) {
+                "$existingItems|$pantryItem"
+            } else {
+                pantryItem
+            }
+            editor.putString("PantryItems", newItems)
+
+            Toast.makeText(this, "${dairy.name} saved to pantry", Toast.LENGTH_SHORT).show()
         }
 
+        editor.apply()
         selectedItems.clear()
+
+        // Call to navigate to pantry after saving
+        navigateAfterSave()
+    }
+
+    private fun navigateAfterSave() {
+        // Switch to the Categories activity and show the pantry segment
+        val intent = Intent(this, Categories::class.java)
+        intent.putExtra("showFragment", "pantry") // optionally open pantry
+        startActivity(intent)
+        finish()
     }
 }
 
-private fun <T> Call<T>.enqueue(callback: Callback<List<Dairy>>) {
-    // Custom enqueue extension if needed
+private fun Any?.indexOf(item: Dairy): Int {
+    // Cast 'this' to List<Dairy> or return -1 if the cast fails
+    val list = this as? List<Dairy> ?: return -1
+    // Return the index of the item or -1 if not found
+    return list.indexOf(item)
 }
-

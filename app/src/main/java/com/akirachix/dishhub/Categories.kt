@@ -1,4 +1,5 @@
 
+
 package com.akirachix.dishhub
 
 import android.content.Intent
@@ -10,37 +11,43 @@ import com.akirachix.dishhub.databinding.ActivityCategoriesBinding
 
 class Categories : AppCompatActivity() {
     private lateinit var binding: ActivityCategoriesBinding
-    private lateinit var sessionManager: SessionManager // Make sure to import or define this class
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sessionManager = SessionManager(this) // Initialize session manager
+        sessionManager = SessionManager(this)
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.home -> {
-                    loadFragment(HomeFragment())
-                    true
+        // Check for the intent extra to load PantryFragment
+        if (intent.getStringExtra("showFragment") == "pantry") {
+            loadFragment(PantryFragment()) // Load the PantryFragment directly
+            binding.bottomNavigationView.selectedItemId = R.id.pantry // Set the selected nav item
+        } else {
+            binding.bottomNavigationView.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.home -> {
+                        loadFragment(HomeFragment())
+                        true
+                    }
+                    R.id.pantry -> {
+                        loadFragment(PantryFragment())
+                        true
+                    }
+                    R.id.shop -> {
+                        loadFragment(ShopFragment())
+                        true
+                    }
+                    else -> false
                 }
-                R.id.pantry -> {
-                    loadFragment(PantryFragment())
-                    true
-                }
-                R.id.shop -> {
-                    loadFragment(ShopFragment())
-                    true
-                }
-                else -> false
             }
-        }
 
-        // Load the default fragment
-        if (savedInstanceState == null) {
-            loadFragment(HomeFragment())
-            binding.bottomNavigationView.selectedItemId = R.id.home
+            // Load the default fragment
+            if (savedInstanceState == null) {
+                loadFragment(HomeFragment())
+                binding.bottomNavigationView.selectedItemId = R.id.home
+            }
         }
 
         binding.btnLogout.setOnClickListener {
@@ -60,12 +67,12 @@ class Categories : AppCompatActivity() {
             logout()
         }
         dialog.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.dismiss() }
-        dialog.show() // Display the dialog
+        dialog.show()
     }
 
     private fun logout() {
-        sessionManager.logout() // Clear session data
-        startActivity(Intent(this, Login::class.java)) // Redirect to Login activity
-        finish() // Close this activity
+        sessionManager.logout()
+        startActivity(Intent(this, Login::class.java))
+        finish()
     }
 }

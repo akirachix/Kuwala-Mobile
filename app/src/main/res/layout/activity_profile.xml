@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:hint="Enter your name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameTextView" />
@@ -124,19 +123,6 @@
         app:layout_constraintBottom_toBottomOf="@id/reminderSwitch"
         app:layout_constraintStart_toEndOf="@id/reminderSwitch"
         app:layout_constraintTop_toTopOf="@id/reminderSwitch" />
-
-    <Button
-        android:id="@+id/saveProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#FF9800"
-        android:text="Save"
-        android:textColor="#883418"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/btnback"

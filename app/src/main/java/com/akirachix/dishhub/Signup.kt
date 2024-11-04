@@ -1,193 +1,192 @@
-//
+
+
+
+
+
+
 package com.akirachix.dishhub
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.akirachix.dishhub.R.id.google
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.FirebaseUser
-
-
 
 
 class SignUpActivity : AppCompatActivity() {
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var oneTapClient: com.google.android.gms.auth.api.identity.SignInClient
-    private lateinit var signInLauncher: ActivityResultLauncher<IntentSenderRequest>
-
-    // Add new EditText variables for regular sign up
     private lateinit var etFirstName: EditText
     private lateinit var etLastName: EditText
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
+    private lateinit var btnSignUp: Button
+    private lateinit var sharedPreferences: SharedPreferences
 
-    private val TAG = "SignUpActivity"
+
+    private val MIN_PASSWORD_LENGTH = 6
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup) // Ensure your layout name is correct
+        setContentView(R.layout.activity_signup)
 
-        // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance()
-        oneTapClient = Identity.getSignInClient(this)
 
-        // Initialize your views
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+
+        initializeViews()
+        setupClickListeners()
+    }
+
+
+    private fun initializeViews() {
         etFirstName = findViewById(R.id.etfirstname)
         etLastName = findViewById(R.id.etLastname)
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etpss)
         etConfirmPassword = findViewById(R.id.etpass)
+        btnSignUp = findViewById(R.id.btnlogin)
+    }
 
-        signInLauncher = registerForActivityResult(
-            ActivityResultContracts.StartIntentSenderForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                handleSignInResult(result.data)
-            } else {
-                Log.e(TAG, "Sign-in failed or cancelled.")
-                Toast.makeText(this, "Sign-in failed or cancelled.", Toast.LENGTH_SHORT).show()
-            }
-        }
 
-        // Handle Google sign-in button click
-        val googleSignInButton: Button = findViewById(google)
-        googleSignInButton.setOnClickListener {
-            signIn()
-        }
-
-        // Handle traditional sign-up button click
-        val btnSignUp: Button = findViewById(R.id.btnlogin)
+    private fun setupClickListeners() {
         btnSignUp.setOnClickListener {
             performSignUp()
         }
 
-        // Handle "Already have an account? Log in" click
-        val txtLogin: TextView = findViewById(R.id.txtlogin)
-        txtLogin.setOnClickListener {
-            Log.d(TAG, "Navigate to Login")
-            startActivity(Intent(this, Login::class.java)) // Update with your actual Login Activity name
+
+        findViewById<TextView>(R.id.txtlogin).setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
         }
     }
+
 
     private fun performSignUp() {
         val firstName = etFirstName.text.toString().trim()
         val lastName = etLastName.text.toString().trim()
         val email = etEmail.text.toString().trim()
-        val password = etPassword.text.toString().trim()
-        val confirmPassword = etConfirmPassword.text.toString().trim()
+        val password = etPassword.text.toString()
+        val confirmPassword = etConfirmPassword.text.toString()
 
-        // Basic validation
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+
+        if (!validateInputs(firstName, lastName, email, password, confirmPassword)) {
             return
         }
 
-        if (password != confirmPassword) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+
+        // Check if email already exists
+        if (isEmailRegistered(email)) {
+            showToast("This email is already registered")
             return
         }
 
-        // Create user with email and password
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "User registered successfully")
-                    // User successfully registered, navigate to CategoriesActivity
-                    val intent = Intent(this,Login::class.java)
-                    startActivity(intent)
-                    finish() // Close the SignUpActivity so the user can't return here with back button
-                } else {
-                    Log.e(TAG, "Registration failed", task.exception)
-                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
+
+        // Save user data
+        saveUserData(firstName, lastName, email, password)
+
+
+        showToast("Registration successful!")
+
+
+        // Navigate to Login
+        startActivity(Intent(this, Login::class.java))
+        finish()
     }
 
-    private fun signIn() {
-        val signInRequest = BeginSignInRequest.builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)  // Ensure this is set to true
-                    .setServerClientId(getString(R.string.server_client_id)) // Your server client ID
-                    .setFilterByAuthorizedAccounts(false)
-                    .build()
-            )
-            .build()
 
-        oneTapClient.beginSignIn(signInRequest)
-            .addOnSuccessListener(this) { result ->
-                try {
-                    signInLauncher.launch(
-                        IntentSenderRequest.Builder(result.pendingIntent.intentSender).build()
-                    )
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error starting sign-in intent: ${e.message}")
-                    Toast.makeText(this, "Error starting sign-in: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+    private fun validateInputs(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ): Boolean {
+        when {
+            firstName.isEmpty() -> {
+                etFirstName.error = "First name is required"
+                etFirstName.requestFocus()
+                return false
             }
-            .addOnFailureListener(this) { e ->
-                Log.e(TAG, "Sign-in failed: ${e.message}")
-                Toast.makeText(this, "Sign-in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            lastName.isEmpty() -> {
+                etLastName.error = "Last name is required"
+                etLastName.requestFocus()
+                return false
             }
-    }
-
-    private fun handleSignInResult(data: Intent?) {
-        try {
-            data?.let {
-                val credential = oneTapClient.getSignInCredentialFromIntent(it)
-                val idToken = credential.googleIdToken
-
-                if (!idToken.isNullOrEmpty()) {
-                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                    auth.signInWithCredential(firebaseCredential)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                Log.d(TAG, "signInWithCredential:success")
-                                val user = auth.currentUser
-                                updateUI(user)
-
-                                // Navigate to CategoriesActivity on successful sign-in
-                                val intent = Intent(this, Login::class.java)
-                                startActivity(intent)
-                                finish() // Close SignUpActivity
-                            } else {
-                                Log.w(TAG, "signInWithCredential:failure", task.exception)
-                                Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                                updateUI(null)
-                            }
-                        }
-                } else {
-                    Log.e(TAG, "No ID token found!")
-                    Toast.makeText(this, "No ID token found, please try again.", Toast.LENGTH_SHORT).show()
-                }
-            } ?: Log.e(TAG, "Received null data for sign-in.")
-        } catch (e: ApiException) {
-            Log.e(TAG, "Sign-in failed: ${e.message}")
-            Toast.makeText(this, "Sign-in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            email.isEmpty() -> {
+                etEmail.error = "Email is required"
+                etEmail.requestFocus()
+                return false
+            }
+            !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                etEmail.error = "Please enter a valid email address"
+                etEmail.requestFocus()
+                return false
+            }
+            password.isEmpty() -> {
+                etPassword.error = "Password is required"
+                etPassword.requestFocus()
+                return false
+            }
+            password.length < MIN_PASSWORD_LENGTH -> {
+                etPassword.error = "Password must be at least $MIN_PASSWORD_LENGTH characters"
+                etPassword.requestFocus()
+                return false
+            }
+            confirmPassword.isEmpty() -> {
+                etConfirmPassword.error = "Please confirm your password"
+                etConfirmPassword.requestFocus()
+                return false
+            }
+            password != confirmPassword -> {
+                etConfirmPassword.error = "Passwords do not match"
+                etConfirmPassword.requestFocus()
+                return false
+            }
         }
+        return true
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-        if (user != null) {
-            Log.d(TAG, "User signed in: ${user.displayName}")
-        } else {
-            Log.d(TAG, "No user signed in")
-        }
+
+    private fun isEmailRegistered(email: String): Boolean {
+        val registeredEmails = sharedPreferences.getStringSet("registered_emails", setOf()) ?: setOf()
+        return registeredEmails.contains(email)
+    }
+
+
+    private fun saveUserData(firstName: String, lastName: String, email: String, password: String) {
+        val editor = sharedPreferences.edit()
+
+
+        // Add email to registered emails set
+        val registeredEmails = sharedPreferences.getStringSet("registered_emails", setOf())?.toMutableSet() ?: mutableSetOf()
+        registeredEmails.add(email)
+        editor.putStringSet("registered_emails", registeredEmails)
+
+
+        // Save user details
+        editor.putString("${email}_firstName", firstName)
+        editor.putString("${email}_lastName", lastName)
+        editor.putString("${email}_password", password) // Note: In a real app, you should hash the password
+        editor.putString("${email}_fullName", "$firstName $lastName")
+
+
+        // Save current user
+        editor.putString("current_user_email", email)
+
+
+        editor.apply()
+    }
+
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
+
+
