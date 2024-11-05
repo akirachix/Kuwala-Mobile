@@ -1,7 +1,3 @@
-
-
-
-
 package com.akirachix.dishhub
 
 import android.content.Intent
@@ -61,7 +57,7 @@ class GrainsCategory : AppCompatActivity() {
     }
 
     private fun setupSaveButton() {
-        binding.button.setOnClickListener {
+        binding.saveButton.setOnClickListener {
             if (selectedItems.isNotEmpty()) {
                 saveSelectedItems()  // Call save function
             } else {

@@ -1,6 +1,3 @@
-
-
-
 package com.akirachix.dishhub
 
 import android.annotation.SuppressLint
@@ -38,7 +35,7 @@ class FruitsCategory : AppCompatActivity() {
         setupBackButton()
         fetchFoodItems()
 
-        binding.button.setOnClickListener { saveItemsToPantry() }
+        binding.saveButton.setOnClickListener { saveItemsToPantry() }
     }
 
     private fun setupRecyclerView() {
@@ -102,14 +99,12 @@ class FruitsCategory : AppCompatActivity() {
             val itemNames = selectedItems.joinToString(", ") { it.name }
             Toast.makeText(this, "Saved to Pantry: $itemNames", Toast.LENGTH_SHORT).show()
 
-            // Save to SharedPreferences
             val sharedPreferences: SharedPreferences = getSharedPreferences("PantryPreferences", MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
             val existingItems = sharedPreferences.getString("PantryItems", "") ?: ""
             val newItems = selectedItems.joinToString("|") { "${it.name},${it.quantity}" } // Save name and quantity
 
-            // Save combined items
             editor.putString("PantryItems", if (existingItems.isNotEmpty()) "$existingItems|$newItems" else newItems)
             editor.apply()
 

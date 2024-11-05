@@ -1,9 +1,4 @@
-
-
 package com.akirachix.dishhub
-
-
-
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver

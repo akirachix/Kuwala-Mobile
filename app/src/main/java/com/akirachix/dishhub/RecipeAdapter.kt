@@ -1,5 +1,3 @@
-
-
 package com.akirachix.dishhub
 
 import RecipeDetailsDisplay

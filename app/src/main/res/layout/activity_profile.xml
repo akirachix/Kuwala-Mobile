@@ -103,6 +103,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reminderTextView" />
 
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="89dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#883418"
+        android:text="Logout"
+        android:textColor="#F8A11B"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtoff"
         android:layout_width="wrap_content"

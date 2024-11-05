@@ -1,9 +1,3 @@
-
-
-
-
-
-
 package com.akirachix.dishhub
 
 import PantryAdapter
@@ -14,7 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -25,11 +19,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@Suppress("DEPRECATION")
 class PantryFragment : Fragment() {
 
     private lateinit var binding: FragmentPantryBinding
     private val selectedIngredients = mutableListOf<String>()
     private lateinit var pantryAdapter: PantryAdapter
+    private var pantryItems: MutableList<PantryItems> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +35,21 @@ class PantryFragment : Fragment() {
         setupRecyclerView()
         setupFetchRecipeButton()
         loadPantryItems()
+        setupSearchView()
 
-        // Set up back arrow click listener
-        binding.backArrow.setOnClickListener {
-            requireActivity().onBackPressed()  // Handle back navigation
+//
+//        binding.button.setOnClickListener {
+//            val homeFragment = HomeFragment()
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.fcvHome, homeFragment) // Ensure this is the correct container ID
+//                .addToBackStack(null)
+//                .commit()
+//        }
+
+        binding.button.setOnClickListener {
+            requireActivity().onBackPressed()
         }
+
 
         return binding.root
     }
@@ -60,6 +66,25 @@ class PantryFragment : Fragment() {
         // TODO: Implement save pantry items logic.
     }
 
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterItems(newText ?: "")
+                return true
+            }
+        })
+    }
+
+    private fun filterItems(query: String) {
+        val filteredList = pantryItems.filter { it.item.contains(query, ignoreCase = true) }
+        pantryAdapter.updateItems(filteredList)
+    }
+
     private fun setupFetchRecipeButton() {
         binding.btnYumAhead.setOnClickListener {
             if (selectedIngredients.isEmpty()) {
@@ -73,14 +98,15 @@ class PantryFragment : Fragment() {
     private fun loadPantryItems() {
         val sharedPreferences = requireActivity().getSharedPreferences("PantryPreferences", Context.MODE_PRIVATE)
         val pantryItemsString = sharedPreferences.getString("PantryItems", "") ?: ""
-        val pantryItems = pantryItemsString.split("|").mapNotNull {
+        pantryItems = pantryItemsString.split("|").mapNotNull {
             val parts = it.split(",")
             if (parts.size >= 2) {
                 val name = parts[0]
                 val quantity = parts[1].toIntOrNull() ?: 1
                 PantryItems(name, quantity.toString(), quantity.toString(), "", "")
             } else null
-        }
+        }.toMutableList()
+
         pantryAdapter.updateItems(pantryItems)
     }
 
@@ -129,5 +155,6 @@ class PantryFragment : Fragment() {
                 }
             })
     }
-
 }
+
+

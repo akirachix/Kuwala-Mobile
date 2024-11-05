@@ -1,8 +1,3 @@
-
-
-
-
-
 package com.akirachix.dishhub
 
 import retrofit2.Retrofit

@@ -59,7 +59,7 @@ class DairyCategory : AppCompatActivity() {
     }
 
     private fun setupSaveButton() {
-        binding.button.setOnClickListener {
+        binding.saveButton.setOnClickListener {
             if (selectedItems.isNotEmpty()) {
                 saveSelectedItems() // Call the function to save selected items and navigate to pantry
             } else {
@@ -137,22 +137,21 @@ class DairyCategory : AppCompatActivity() {
         editor.apply()
         selectedItems.clear()
 
-        // Call to navigate to pantry after saving
         navigateAfterSave()
     }
 
     private fun navigateAfterSave() {
         // Switch to the Categories activity and show the pantry segment
         val intent = Intent(this, Categories::class.java)
-        intent.putExtra("showFragment", "pantry") // optionally open pantry
+        intent.putExtra("showFragment", "pantry")
         startActivity(intent)
         finish()
     }
 }
 
 private fun Any?.indexOf(item: Dairy): Int {
-    // Cast 'this' to List<Dairy> or return -1 if the cast fails
+
     val list = this as? List<Dairy> ?: return -1
-    // Return the index of the item or -1 if not found
+
     return list.indexOf(item)
 }

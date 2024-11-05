@@ -35,11 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="165dp"
         android:text="Food name"
-        android:textSize="20dp"
         android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -54,26 +54,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edFoodName" />
 
-    <TextView
-        android:id="@+id/textCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:text="Save to pantry"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etFoodName"
         android:layout_width="337dp"
         android:layout_height="66dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="58dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edFoodName">
@@ -88,14 +74,13 @@
         android:id="@+id/etQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="108dp"
         android:text="Quantity"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <ImageView
         android:id="@+id/subtractCircle"

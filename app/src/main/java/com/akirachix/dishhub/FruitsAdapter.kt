@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 package com.akirachix.dishhub
 
 import android.view.LayoutInflater
@@ -45,21 +33,17 @@ class FruitsAdapter(
         holder.foodName.text = item.name
         holder.quantity.text = item.quantity.toString()
 
-        // Set the checkbox state
         holder.checkBox.isChecked = item.isSelected
 
-        // Handle the checkbox change
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.isSelected = isChecked // Update the isSelected property
         }
 
-        // Handle plus button click to increase quantity
         holder.plusButton.setOnClickListener {
             item.quantity += 1
             notifyItemChanged(position)
         }
 
-        // Handle minus button click to decrease quantity
         holder.minusButton.setOnClickListener {
             if (item.quantity > 0) {
                 item.quantity -= 1

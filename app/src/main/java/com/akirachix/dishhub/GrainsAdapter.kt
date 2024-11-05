@@ -1,5 +1,3 @@
-
-
 package com.akirachix.dishhub
 
 import android.view.LayoutInflater
@@ -15,7 +13,6 @@ class GrainsAdapter(
     private val itemClick: (Grains) -> Unit
 ) : RecyclerView.Adapter<GrainsAdapter.GrainsViewHolder>() {
 
-    // Read-only property to expose the current list of items
     val currentList: List<Grains>
         get() = items
 
@@ -39,19 +36,16 @@ class GrainsAdapter(
         holder.quantity.text = item.quantity.toString()
         holder.checkBox.isChecked = item.isSelected
 
-        // Set the checkbox change listener
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.isSelected = isChecked
             itemClick(item) // Notify the activity or fragment
         }
 
-        // Increment quantity
         holder.plusButton.setOnClickListener {
             item.quantity++
             holder.quantity.text = item.quantity.toString()
         }
 
-        // Decrement quantity
         holder.minusButton.setOnClickListener {
             if (item.quantity > 0) {
                 item.quantity--
@@ -59,7 +53,6 @@ class GrainsAdapter(
             }
         }
 
-        // Handle item click
         holder.itemView.setOnClickListener { itemClick(item) }
     }
 
