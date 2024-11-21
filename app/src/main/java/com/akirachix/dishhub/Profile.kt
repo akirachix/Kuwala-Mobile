@@ -204,6 +204,7 @@ class Profile : AppCompatActivity() {
         } else {
             openCamera()
         }
+
     }
 
 

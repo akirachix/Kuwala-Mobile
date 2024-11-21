@@ -1,9 +1,3 @@
-
-
-
-
-
-
 package com.akirachix.dishhub
 
 import android.content.Intent
@@ -24,12 +18,9 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize SessionManager
         sessionManager = SessionManager(this)
 
-        // Check if the user is already logged in
         if (sessionManager.isLoggedIn()) {
-            // User is logged in, redirect to Categories
             startActivity(Intent(this, Categories::class.java))
             finish() // Close the Login activity
             return
@@ -93,21 +84,18 @@ class Login : AppCompatActivity() {
         val email = binding.etEmail.text.toString()
         val password = binding.etpss.text.toString()
 
-        // Assume you have a method to validate credentials that returns user details
         val userId = validateCredentials(email, password)
 
         if (userId != null) {
             sessionManager.saveLoginSession(email, userId) // Save email and user ID
             startActivity(Intent(this, Categories::class.java))
-            finish() // Close the Login activity
+            finish()
         } else {
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Replace this stub method with actual user validation logic
     private fun validateCredentials(email: String, password: String): String? {
-        // Here you should implement your actual authentication logic
-        return "someUserId" // Example user ID
+        return "someUserId"
     }
 }

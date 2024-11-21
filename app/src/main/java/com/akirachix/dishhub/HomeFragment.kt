@@ -25,7 +25,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Make sure to import your Profile activity correctly
         val profileImageView = binding.btnprofile
         profileImageView.setOnClickListener {
             startActivity(Intent(requireContext(), com.akirachix.dishhub.Profile::class.java))
@@ -37,7 +36,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Other click listeners
         binding.fruits.setOnClickListener {
             startActivity(Intent(activity, FruitsCategory::class.java))
         }

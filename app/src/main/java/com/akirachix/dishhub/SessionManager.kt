@@ -1,7 +1,3 @@
-
-
-
-
 package com.akirachix.dishhub
 
 import android.content.Context
